@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Send, AlertTriangle, Info } from 'lucide-react';
 import Certificate from './Certificate';
+import { API_BASE_URL } from '../config';
 
 function HomeForm({ onSubmissionSuccess }) {
   const [fullName, setFullName] = useState('');
@@ -42,7 +43,7 @@ function HomeForm({ onSubmissionSuccess }) {
 
     setLoading(true);
     try {
-      const response = await fetch('/api/submissions', {
+      const response = await fetch(`${API_BASE_URL}/api/submissions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Calendar, FileText, Plus, Trash2, ArrowLeft, ArrowRight, RefreshCw, Users, ShieldAlert, Award } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 function Dashboard({ token, user }) {
   const [submissions, setSubmissions] = useState([]);
@@ -29,7 +30,7 @@ function Dashboard({ token, user }) {
     setLoading(true);
     try {
       const offset = (page - 1) * limit;
-      let url = `/api/admin/submissions?limit=${limit}&offset=${offset}`;
+      let url = `${API_BASE_URL}/api/admin/submissions?limit=${limit}&offset=${offset}`;
       if (search) url += `&search=${encodeURIComponent(search)}`;
       if (startDate) url += `&startDate=${startDate}`;
       if (endDate) url += `&endDate=${endDate}`;
@@ -44,7 +45,7 @@ function Dashboard({ token, user }) {
         
         const total = data.totalCount;
         const todayStr = new Date().toISOString().split('T')[0];
-        const resToday = await fetch(`/api/admin/submissions?startDate=${todayStr}&limit=1`, {
+        const resToday = await fetch(`${API_BASE_URL}/api/admin/submissions?startDate=${todayStr}&limit=1`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const dataToday = await resToday.json();
@@ -64,7 +65,7 @@ function Dashboard({ token, user }) {
   const fetchAdmins = async () => {
     if (user.role !== 'superadmin') return;
     try {
-      const res = await fetch('/api/admin/users', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/users`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
@@ -84,7 +85,7 @@ function Dashboard({ token, user }) {
     fetchAdmins();
     const loadInitialStats = async () => {
       try {
-        const res = await fetch('/api/admin/submissions?limit=1', {
+        const res = await fetch(`${API_BASE_URL}/api/admin/submissions?limit=1`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const data = await res.json();
@@ -108,7 +109,7 @@ function Dashboard({ token, user }) {
   // Export to CSV or Excel
   const handleExport = async (format) => {
     try {
-      let url = `/api/admin/submissions?limit=100000`;
+      let url = `${API_BASE_URL}/api/admin/submissions?limit=100000`;
       if (search) url += `&search=${encodeURIComponent(search)}`;
       if (startDate) url += `&startDate=${startDate}`;
       if (endDate) url += `&endDate=${endDate}`;
@@ -198,7 +199,7 @@ function Dashboard({ token, user }) {
     }
 
     try {
-      const res = await fetch('/api/admin/users', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -234,7 +235,7 @@ function Dashboard({ token, user }) {
     }
 
     try {
-      const res = await fetch(`/api/admin/users/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/admin/users/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });

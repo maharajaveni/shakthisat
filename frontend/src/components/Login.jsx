@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Lock, User, LogIn, AlertTriangle } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 function Login({ onLoginSuccess }) {
   const [username, setUsername] = useState('');
@@ -18,7 +19,7 @@ function Login({ onLoginSuccess }) {
 
     setLoading(true);
     try {
-      const response = await fetch('/api/admin/login', {
+      const response = await fetch(`${API_BASE_URL}/api/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: username.trim(), password })
