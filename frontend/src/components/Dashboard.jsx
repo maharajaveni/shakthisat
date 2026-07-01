@@ -125,13 +125,14 @@ function Dashboard({ token, user }) {
         
         if (format === 'csv') {
           // CSV construction
-          fileContent += 'Submission ID,Participant Name,Shakthi Definition,Registration Timestamp (UTC)\r\n';
+          fileContent += 'Submission ID,Participant Name,Email Address,Shakthi Definition,Registration Timestamp (UTC)\r\n';
           data.submissions.forEach(row => {
             const id = row.id;
             const name = `"${row.fullName.replace(/"/g, '""')}"`;
+            const emailAddr = `"${(row.email || '').replace(/"/g, '""')}"`;
             const definition = `"${row.shakthiResponse.replace(/"/g, '""')}"`;
             const date = row.createdAt;
-            fileContent += `${id},${name},${definition},${date}\r\n`;
+            fileContent += `${id},${name},${emailAddr},${definition},${date}\r\n`;
           });
           
           const blob = new Blob([fileContent], { type: 'text/csv;charset=utf-8;' });
@@ -143,13 +144,14 @@ function Dashboard({ token, user }) {
           fileContent += `<body>`;
           fileContent += `<table border="1" style="border-collapse:collapse; font-family: Arial, sans-serif;">`;
           fileContent += `<tr style="background-color: #3d1b5b; color: #ffffff; font-weight: bold;">`;
-          fileContent += `<th>Submission ID</th><th>Participant Name</th><th>Shakthi Definition</th><th>Registration Date</th>`;
+          fileContent += `<th>Submission ID</th><th>Participant Name</th><th>Email Address</th><th>Shakthi Definition</th><th>Registration Date</th>`;
           fileContent += `</tr>`;
           
           data.submissions.forEach(row => {
             fileContent += `<tr>`;
             fileContent += `<td>${row.id}</td>`;
             fileContent += `<td>${escapeHtml(row.fullName)}</td>`;
+            fileContent += `<td>${escapeHtml(row.email || '')}</td>`;
             fileContent += `<td>${escapeHtml(row.shakthiResponse)}</td>`;
             fileContent += `<td>${new Date(row.createdAt).toLocaleString()}</td>`;
             fileContent += `</tr>`;
@@ -371,6 +373,7 @@ function Dashboard({ token, user }) {
               <tr>
                 <th>ID</th>
                 <th>Participant Name</th>
+                <th>Email Address</th>
                 <th>"Shakthi is..."</th>
                 <th>Registration Date (Local)</th>
               </tr>
@@ -380,6 +383,7 @@ function Dashboard({ token, user }) {
                 <tr key={sub.id}>
                   <td style={{ fontWeight: 'bold', color: 'rgba(212, 175, 55, 0.8)' }}>#{sub.id}</td>
                   <td style={{ fontWeight: '500' }}>{sub.fullName}</td>
+                  <td style={{ color: '#b0a4c0', fontSize: '0.9rem' }}>{sub.email}</td>
                   <td>
                     <span style={{ fontStyle: 'italic', color: '#ffd700', background: 'rgba(212,175,55,0.08)', padding: '4px 8px', borderRadius: '4px', border: '0.5px solid rgba(212,175,55,0.15)' }}>
                       {sub.shakthiResponse}

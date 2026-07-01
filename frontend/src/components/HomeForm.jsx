@@ -5,6 +5,7 @@ import { API_BASE_URL } from '../config';
 
 function HomeForm({ onSubmissionSuccess }) {
   const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
   const [shakthiResponse, setShakthiResponse] = useState('');
   const [wordCount, setWordCount] = useState(0);
   const [error, setError] = useState('');
@@ -29,6 +30,17 @@ function HomeForm({ onSubmissionSuccess }) {
       return;
     }
 
+    if (!email.trim()) {
+      setError('Please enter your email address.');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
     if (!shakthiResponse.trim()) {
       setError('Please enter your definition of Shakthi.');
       return;
@@ -48,6 +60,7 @@ function HomeForm({ onSubmissionSuccess }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           fullName: fullName.trim(),
+          email: email.trim().toLowerCase(),
           shakthiResponse: trimmedResponse
         })
       });
@@ -97,6 +110,22 @@ function HomeForm({ onSubmissionSuccess }) {
             <p className="info-text">Your name as it will appear on the certificate.</p>
           </div>
 
+          {/* Email Address */}
+          <div className="form-group">
+            <label className="form-label" htmlFor="email">Email Address</label>
+            <input
+              id="email"
+              type="email"
+              className="form-input"
+              placeholder="e.g. name@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              disabled={loading}
+            />
+            <p className="info-text">Your email for receiving official registration details.</p>
+          </div>
+
           {/* Shakthi Response */}
           <div className="form-group">
             <label className="form-label" htmlFor="shakthiResponse">What is Shakthi to you?</label>
@@ -132,7 +161,7 @@ function HomeForm({ onSubmissionSuccess }) {
           <button
             type="submit"
             className="submit-btn"
-            disabled={loading || isWordCountExceeded || !fullName.trim() || !shakthiResponse.trim()}
+            disabled={loading || isWordCountExceeded || !fullName.trim() || !email.trim() || !shakthiResponse.trim()}
           >
             <Send size={18} />
             {loading ? 'Submitting...' : 'Generate Certificate'}

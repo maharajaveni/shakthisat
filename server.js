@@ -53,11 +53,21 @@ function authorizeSuperadmin(req, res, next) {
 // 1. Submit registration
 app.post('/api/submissions', async (req, res) => {
   try {
-    const { fullName, shakthiResponse } = req.body;
+    const { fullName, email, shakthiResponse } = req.body;
 
     // Validate inputs
     if (!fullName || typeof fullName !== 'string' || fullName.trim() === '') {
       return res.status(400).json({ success: false, message: 'Full name is required' });
+    }
+
+    if (!email || typeof email !== 'string' || email.trim() === '') {
+      return res.status(400).json({ success: false, message: 'Email address is required' });
+    }
+
+    // Simple email regex validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      return res.status(400).json({ success: false, message: 'Please enter a valid email address' });
     }
 
     if (!shakthiResponse || typeof shakthiResponse !== 'string' || shakthiResponse.trim() === '') {
@@ -73,8 +83,8 @@ app.post('/api/submissions', async (req, res) => {
     const timestamp = new Date().toISOString();
 
     const result = await run(
-      'INSERT INTO submissions (fullName, shakthiResponse, createdAt) VALUES (?, ?, ?)',
-      [fullName.trim(), trimmedResponse, timestamp]
+      'INSERT INTO submissions (fullName, email, shakthiResponse, createdAt) VALUES (?, ?, ?, ?)',
+      [fullName.trim(), email.trim().toLowerCase(), trimmedResponse, timestamp]
     );
 
     res.status(201).json({
@@ -82,6 +92,7 @@ app.post('/api/submissions', async (req, res) => {
       submission: {
         id: result.lastID,
         fullName: fullName.trim(),
+        email: email.trim().toLowerCase(),
         shakthiResponse: trimmedResponse,
         createdAt: timestamp
       }
@@ -143,10 +154,10 @@ app.get('/api/admin/submissions', authenticateToken, async (req, res) => {
 
     if (search) {
       const searchPattern = `%${search}%`;
-      query += ' AND (fullName LIKE ? OR shakthiResponse LIKE ?)';
-      countQuery += ' AND (fullName LIKE ? OR shakthiResponse LIKE ?)';
-      params.push(searchPattern, searchPattern);
-      countParams.push(searchPattern, searchPattern);
+      query += ' AND (fullName LIKE ? OR email LIKE ? OR shakthiResponse LIKE ?)';
+      countQuery += ' AND (fullName LIKE ? OR email LIKE ? OR shakthiResponse LIKE ?)';
+      params.push(searchPattern, searchPattern, searchPattern);
+      countParams.push(searchPattern, searchPattern, searchPattern);
     }
 
     if (startDate) {
