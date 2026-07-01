@@ -230,6 +230,35 @@ function Dashboard({ token, user }) {
     }
   };
 
+  // Clear all registrations (Superadmin only)
+  const handleClearSubmissions = async () => {
+    if (!window.confirm('⚠️ WARNING: Are you absolutely sure you want to clear all participant registrations? This action is permanent and cannot be undone.')) {
+      return;
+    }
+    if (!window.confirm('PROMPT: Double-confirm. Clear all registrations?')) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/admin/submissions/clear`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        alert(data.message);
+        // Refresh statistics and data list
+        setPage(1);
+        fetchSubmissions();
+      } else {
+        alert(data.message || 'Failed to clear registrations.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error connecting to backend server.');
+    }
+  };
+
   // Delete admin user (Superadmin only)
   const handleDeleteAdmin = async (id, username) => {
     if (!window.confirm(`Are you sure you want to delete admin account '${username}'?`)) {
@@ -352,6 +381,11 @@ function Dashboard({ token, user }) {
               <FileText size={16} />
               Excel
             </button>
+            {user.role === 'superadmin' && (
+              <button className="action-btn" onClick={handleClearSubmissions} style={{ background: 'rgba(235, 64, 52, 0.1)', color: '#ff4c4c', border: '1px solid rgba(235, 64, 52, 0.3)' }}>
+                Clear All
+              </button>
+            )}
           </div>
         </div>
       </div>

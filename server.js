@@ -204,6 +204,21 @@ app.get('/api/admin/submissions', authenticateToken, async (req, res) => {
   }
 });
 
+// 3b. Clear all submissions (Superadmin only)
+app.post('/api/admin/submissions/clear', authenticateToken, authorizeSuperadmin, async (req, res) => {
+  try {
+    await run('DELETE FROM submissions');
+    await run("DELETE FROM sqlite_sequence WHERE name='submissions'");
+    res.json({
+      success: true,
+      message: 'All participant registrations cleared successfully.'
+    });
+  } catch (error) {
+    console.error('Error clearing submissions:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
 // 4. Create Admin Account (Superadmin only)
 app.post('/api/admin/users', authenticateToken, authorizeSuperadmin, async (req, res) => {
   try {
