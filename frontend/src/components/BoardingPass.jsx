@@ -209,7 +209,7 @@ function BoardingPass({ submission, isPreview = false }) {
         <div style={{ padding: '20px 15px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <img src="/spacekidz_logo.png" alt="Space Kidz India Logo" style={{ width: '85px', height: 'auto', filter: 'brightness(0) invert(1)' }} />
+              <img src="/spacekidz_logo.png" alt="Space Kidz India Logo" style={{ width: '85px', height: 'auto' }} />
             </div>
             <div style={{ marginTop: '20px' }}>
               <div style={{ fontSize: '0.75rem', color: '#b0a4c0', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.5px' }}>MISSION</div>
@@ -246,7 +246,7 @@ function BoardingPass({ submission, isPreview = false }) {
           {/* Header row inside dark blue banner */}
           <div className="boarding-main-header">
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <img src="/spacekidz_logo.png" alt="Space Kidz India Logo" style={{ width: '105px', height: 'auto', filter: 'brightness(0) invert(1)' }} />
+              <img src="/spacekidz_logo.png" alt="Space Kidz India Logo" style={{ width: '105px', height: 'auto' }} />
             </div>
             <div style={{ fontSize: '0.7rem', color: '#ffffff', fontWeight: 'bold', letterSpacing: '1px', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '6px' }}>
               <span>ALL-GIRL SPACE MISSION</span>
