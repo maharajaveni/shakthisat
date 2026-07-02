@@ -170,8 +170,14 @@ function Certificate({ fullName, shakthiResponse, isPreview = false }) {
         {/* Footer: Signature block on the left, Seal on the right (restored to older places!) */}
         {/* Footer: Signature block on the left (black text), Seal centered, right empty for rocket */}
         <div className="certificate-footer-signatures" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', position: 'relative' }}>
-          {/* Space placeholder to maintain flex layout, exposing the realistic background girl silhouette */}
-          <div style={{ width: '150px' }}></div>
+          <div className="signature-block" style={{ zIndex: 10, width: '300px', marginLeft: '-5px' }}>
+            <img src={SIGNATURE_BASE64} alt="Dr. Srimathy Kesan Signature" className="signature-img" />
+            <div className="signature-line-element"></div>
+            <div className="signature-val" style={{ color: '#cfa21b', fontWeight: 'bold', whiteSpace: 'nowrap' }}>DR. SRIMATHY KESAN</div>
+            <div className="signature-details" style={{ color: '#cfa21b', fontWeight: '500', whiteSpace: 'nowrap' }}>
+              Founder and CEO of SpaceKidz India
+            </div>
+          </div>
 
           <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', bottom: '-5px', zIndex: 5 }}>
             <img src="/shakthisat_seal.png" alt="Mission ShakthiSAT Official Seal" className="cert-seal-img" crossOrigin="anonymous" style={{ width: '115px', height: '115px' }} />
