@@ -20,6 +20,49 @@ const SpaceShuttleSVG = () => (
   </svg>
 );
 
+// Custom Saturn Icon SVG
+const SaturnIcon = ({ size = 15, color = '#ff4081' }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} stroke={color} strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+    <circle cx="12" cy="12" r="5" fill={color} opacity="0.15" />
+    <circle cx="12" cy="12" r="5" />
+    <path d="M 4,15 C 4,15 8,9 14,9 C 20,9 20,15 20,15" />
+    <path d="M 20,9 C 20,9 16,15 10,15 C 4,15 4,9 4,9" />
+  </svg>
+);
+
+// Custom Embossed Blue Seal SVG
+const BlueSealSVG = () => (
+  <svg viewBox="0 0 100 100" width="60" height="60" style={{ display: 'block', filter: 'drop-shadow(0 2px 4px rgba(13, 71, 161, 0.2))' }}>
+    <circle cx="50" cy="50" r="47" fill="#0d47a1" opacity="0.05" />
+    <circle cx="50" cy="50" r="47" fill="none" stroke="#0d47a1" strokeWidth="1.5" />
+    <circle cx="50" cy="50" r="43" fill="none" stroke="#0d47a1" strokeWidth="1" strokeDasharray="2,2" />
+    
+    <defs>
+      {/* Path to loop text clockwise around the inner border */}
+      <path id="seal-text-path" d="M 50,91 A 41,41 0 1,1 50.1,91" fill="none" />
+    </defs>
+    <text fill="#0d47a1" fontSize="6.2" fontWeight="800" letterSpacing="0.3px" fontFamily="Outfit, sans-serif">
+      <textPath href="#seal-text-path" startOffset="0%">SPACE KIDZ INDIA • WE BELIEVE IN GIRLS & SPACE •</textPath>
+    </text>
+    
+    <g transform="translate(50, 50) scale(0.65)">
+      {/* Orbit ring */}
+      <ellipse cx="0" cy="0" rx="24" ry="8" fill="none" stroke="#0d47a1" strokeWidth="1.5" transform="rotate(-25)" />
+      {/* Small stars */}
+      <circle cx="-12" cy="-12" r="1.5" fill="#0d47a1" />
+      <circle cx="12" cy="12" r="1" fill="#0d47a1" />
+      <circle cx="15" cy="-8" r="1.2" fill="#0d47a1" />
+      {/* Rocket */}
+      <g transform="rotate(45) translate(-4, -14)">
+        <path d="M 4,0 L 8,12 L 0,12 Z" fill="#0d47a1" />
+        <rect x="1.5" y="12" width="5" height="12" fill="#0d47a1" />
+        <path d="M 0,20 L 1.5,24 L 3,20 Z" fill="#ff4081" />
+        <path d="M 8,20 L 6.5,24 L 5,20 Z" fill="#ff4081" />
+      </g>
+    </g>
+  </svg>
+);
+
 // Vector graphic of the circular mission patch
 const MissionPatchSVG = () => (
   <svg viewBox="0 0 200 200" width="150" height="150" style={{ display: 'block', margin: '0 auto' }}>
@@ -36,7 +79,7 @@ const MissionPatchSVG = () => (
       <textPath href="#curve-top" startOffset="50%" textAnchor="middle">MISSION SHAKTHISAT</textPath>
     </text>
     <text fill="#00e5ff" fontSize="8" fontWeight="bold" letterSpacing="0.8px" fontFamily="Outfit, sans-serif">
-      <textPath href="#curve-bottom" startOffset="50%" textAnchor="middle">DREAM ★ DISCOVER ★ EMPOWER</textPath>
+      <textPath href="#curve-bottom" startOffset="50%" textAnchor="middle">DREAM • DISCOVER • EMPOWER</textPath>
     </text>
     
     {/* Earth Arc at the bottom */}
@@ -126,42 +169,21 @@ function BoardingPass({ submission, isPreview = false }) {
   const category = submission?.category || "school";
   const submissionId = submission?.id || 1;
 
-  // Generate realistic unique Boarding Pass ID
+  // Generate realistic unique Boarding Pass ID (matching SKI-MS26-IN-L1-000842 spec)
   const generatePassID = (id) => {
     const pad = (num, size) => {
-      let s = "0000" + num;
+      let s = "000000" + num;
       return s.substring(s.length - size);
     };
-    
-    const getHashStr = (str, length) => {
-      let hash = 0;
-      for (let i = 0; i < str.length; i++) {
-        hash = str.charCodeAt(i) + ((hash << 5) - hash);
-      }
-      const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      let result = '';
-      let val = Math.abs(hash);
-      for (let i = 0; i < length; i++) {
-        result += chars[val % chars.length];
-        val = Math.floor(val / chars.length) || (val + i + 1);
-      }
-      return result;
-    };
-    
-    const block1 = getHashStr(`shakthisat-b1-${id}`, 4);
-    const block2 = getHashStr(`shakthisat-b2-${id}`, 4);
-    const block3 = pad(id || 1, 4);
-    
-    return `MS25-${block1}-${block2}-${block3}`;
+    const paddedId = pad(id || 1, 6);
+    return `SKI-MS26-IN-L1-${paddedId}`;
   };
 
   const passId = generatePassID(submissionId);
 
-  // Set crew position based on registration category
+  // Set crew position to FUTURE SCIENTIST as per spec
   const getCrewPosition = (cat) => {
-    if (cat === 'school') return 'SCHOOL SCIENTIST';
-    if (cat === 'college') return 'COLLEGE SCIENTIST';
-    return 'SPACE EXPLORER';
+    return 'FUTURE SCIENTIST';
   };
 
   const handleDownload = () => {
@@ -340,8 +362,8 @@ function BoardingPass({ submission, isPreview = false }) {
                   </span>
                 </div>
 
-                <div style={{ fontSize: '0.82rem', color: '#37474f', lineHeight: '1.4', fontFamily: 'Outfit, sans-serif' }}>
-                  has successfully joined the all-girl space crew of <b style={{ color: '#0c0414' }}>MISSION SHAKTHISAT</b> and is now officially a future scientist, dreamer and changemaker blasting off towards the stars!
+                <div style={{ fontSize: '0.78rem', color: '#37474f', lineHeight: '1.4', fontFamily: 'Outfit, sans-serif' }}>
+                  has successfully joined the all-girl space crew of <b style={{ color: '#0c0414', fontFamily: "'Cormorant Garamond', serif", fontWeight: 'bold' }}>MISSION SHAKTHISAT</b> and is now officially recognized as a Future Scientist, Dreamer, Explorer and Changemaker, embarking on a journey beyond limits to inspire the next generation of space innovators.
                 </div>
               </div>
 
@@ -358,12 +380,12 @@ function BoardingPass({ submission, isPreview = false }) {
                 <Calendar size={15} style={{ color: '#ff4081' }} />
                 <div>
                   <div style={{ fontSize: '0.52rem', color: '#655e73', fontWeight: 'bold' }}>LAUNCH DATE</div>
-                  <div style={{ fontSize: '0.72rem', color: '#0c0414', fontWeight: 'bold' }}>01 MAY 2025</div>
+                  <div style={{ fontSize: '0.72rem', color: '#0c0414', fontWeight: 'bold' }}>02 JULY 2026</div>
                 </div>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Globe size={15} style={{ color: '#ff4081' }} />
+                <SaturnIcon size={15} style={{ color: '#ff4081' }} />
                 <div>
                   <div style={{ fontSize: '0.52rem', color: '#655e73', fontWeight: 'bold' }}>DESTINATION</div>
                   <div style={{ fontSize: '0.72rem', color: '#0c0414', fontWeight: 'bold' }}>INFINITE POSSIBILITIES</div>
@@ -382,7 +404,7 @@ function BoardingPass({ submission, isPreview = false }) {
                 <Rocket size={15} style={{ color: '#ff4081' }} />
                 <div>
                   <div style={{ fontSize: '0.52rem', color: '#655e73', fontWeight: 'bold' }}>FLIGHT</div>
-                  <div style={{ fontSize: '0.72rem', color: '#0c0414', fontWeight: 'bold' }}>MS-2025</div>
+                  <div style={{ fontSize: '0.72rem', color: '#0c0414', fontWeight: 'bold' }}>MS-2026</div>
                 </div>
               </div>
             </div>
@@ -397,22 +419,20 @@ function BoardingPass({ submission, isPreview = false }) {
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                {/* Circular Seal */}
-                <div style={{ width: '55px', height: '55px', border: '1.5px dashed #0d47a1', borderRadius: '50%', padding: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-                  <span style={{ fontSize: '0.45rem', color: '#0d47a1', fontWeight: 'bold', lineHeight: '1.1' }}>SPACEKIDZ<br />INDIA<br /><span style={{ fontSize: '0.35rem', color: '#ff4081' }}>OFFICIAL</span></span>
-                </div>
+                {/* Circular Seal (spec-compliant blue embossed seal component) */}
+                <BlueSealSVG />
               </div>
             </div>
 
           </div>
 
           {/* Bottom Dark Banner */}
-          <div className="boarding-main-footer">
-            <Barcode width="280px" />
-            <div style={{ color: '#ffffff', fontSize: '0.6rem', fontWeight: 'bold', letterSpacing: '0.5px', fontFamily: 'Orbitron, sans-serif' }}>
-              PASS ID: {passId}
+          <div className="boarding-main-footer" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', padding: '10px 0' }}>
+            <Barcode width="500px" />
+            <div style={{ color: '#ffffff', fontSize: '0.62rem', fontWeight: 'bold', letterSpacing: '2.2px', fontFamily: 'Orbitron, sans-serif', marginTop: '2px' }}>
+              {passId}
             </div>
-            <div style={{ color: '#00e5ff', fontSize: '0.62rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <div style={{ color: '#00e5ff', fontSize: '0.62rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}>
               <span>SECURE YOUR DREAMS. THE UNIVERSE IS WAITING.</span>
               <span>🪐</span>
             </div>
