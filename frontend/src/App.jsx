@@ -63,25 +63,25 @@ function App() {
                 <img src="/spacekidz_logo.jpg" alt="Space Kidz India Logo" className="hero-spacekidz-logo" />
                 <img src="/shakthisat_logo.jpg" alt="Mission ShakthiSAT Logo" className="hero-shakthi-logo" />
               </div>
-              <h1 style={{ fontSize: '2.8rem', fontFamily: 'Cinzel, serif', fontWeight: '900', letterSpacing: '1px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}>
+              <h1 style={{ fontSize: '2.8rem', fontFamily: 'Cinzel, serif', fontWeight: '900', letterSpacing: '1px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
                 MISSION 
                 <span className="title-gold-gradient" style={{ display: 'inline-flex', alignItems: 'baseline' }}>
                   Shakth
-                  <span style={{ position: 'relative', display: 'inline-block', width: '0.45em' }}>
-                    ı
+                  <span style={{ position: 'relative', display: 'inline-block' }}>
+                    i
                     <img 
                       src="/sriyantra.jpg" 
                       alt="Sri Yantra mandala" 
                       style={{ 
                         position: 'absolute', 
-                        top: '-0.35em', 
+                        top: '-0.15em', 
                         left: '50%', 
                         transform: 'translateX(-50%)', 
-                        width: '0.45em', 
-                        height: '0.45em',
+                        width: '0.22em', 
+                        height: '0.22em',
                         borderRadius: '50%',
                         border: '0.5px solid rgba(212, 175, 55, 0.4)',
-                        boxShadow: '0 0 6px rgba(212, 175, 55, 0.8)'
+                        boxShadow: '0 0 4px rgba(212, 175, 55, 0.8)'
                       }} 
                     />
                   </span>
