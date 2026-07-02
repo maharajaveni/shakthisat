@@ -6,6 +6,7 @@ import { API_BASE_URL } from '../config';
 function HomeForm({ onSubmissionSuccess }) {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [shakthiResponse, setShakthiResponse] = useState('');
   const [wordCount, setWordCount] = useState(0);
   const [error, setError] = useState('');
@@ -41,6 +42,17 @@ function HomeForm({ onSubmissionSuccess }) {
       return;
     }
 
+    if (!phone.trim()) {
+      setError('Please enter your phone number.');
+      return;
+    }
+
+    const phoneRegex = /^[+0-9\s-]{7,20}$/;
+    if (!phoneRegex.test(phone.trim())) {
+      setError('Please enter a valid phone number.');
+      return;
+    }
+
     if (!shakthiResponse.trim()) {
       setError('Please enter your definition of Shakthi.');
       return;
@@ -61,6 +73,7 @@ function HomeForm({ onSubmissionSuccess }) {
         body: JSON.stringify({
           fullName: fullName.trim(),
           email: email.trim().toLowerCase(),
+          phone: phone.trim(),
           shakthiResponse: trimmedResponse
         })
       });
@@ -100,7 +113,7 @@ function HomeForm({ onSubmissionSuccess }) {
               id="fullName"
               type="text"
               className="form-input"
-              placeholder="e.g. Maharajaveni"
+              placeholder="e.g. Klara"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               maxLength={60}
@@ -124,6 +137,22 @@ function HomeForm({ onSubmissionSuccess }) {
               disabled={loading}
             />
             <p className="info-text">Your email for receiving official registration details.</p>
+          </div>
+
+          {/* Phone Number */}
+          <div className="form-group">
+            <label className="form-label" htmlFor="phone">Phone Number</label>
+            <input
+              id="phone"
+              type="tel"
+              className="form-input"
+              placeholder="e.g. +91 98765 43210"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+              disabled={loading}
+            />
+            <p className="info-text">Your contact number for registration verification.</p>
           </div>
 
           {/* Shakthi Response */}
@@ -161,7 +190,7 @@ function HomeForm({ onSubmissionSuccess }) {
           <button
             type="submit"
             className="submit-btn"
-            disabled={loading || isWordCountExceeded || !fullName.trim() || !email.trim() || !shakthiResponse.trim()}
+            disabled={loading || isWordCountExceeded || !fullName.trim() || !email.trim() || !phone.trim() || !shakthiResponse.trim()}
           >
             <Send size={18} />
             {loading ? 'Submitting...' : 'Generate Certificate'}

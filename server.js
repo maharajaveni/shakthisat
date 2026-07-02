@@ -53,7 +53,7 @@ function authorizeSuperadmin(req, res, next) {
 // 1. Submit registration
 app.post('/api/submissions', async (req, res) => {
   try {
-    const { fullName, email, shakthiResponse } = req.body;
+    const { fullName, email, phone, shakthiResponse } = req.body;
 
     // Validate inputs
     if (!fullName || typeof fullName !== 'string' || fullName.trim() === '') {
@@ -70,6 +70,16 @@ app.post('/api/submissions', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Please enter a valid email address' });
     }
 
+    if (!phone || typeof phone !== 'string' || phone.trim() === '') {
+      return res.status(400).json({ success: false, message: 'Phone number is required' });
+    }
+
+    // Simple phone regex validation (supports international formats)
+    const phoneRegex = /^[+0-9\s-]{7,20}$/;
+    if (!phoneRegex.test(phone.trim())) {
+      return res.status(400).json({ success: false, message: 'Please enter a valid phone number' });
+    }
+
     if (!shakthiResponse || typeof shakthiResponse !== 'string' || shakthiResponse.trim() === '') {
       return res.status(400).json({ success: false, message: 'Response is required' });
     }
@@ -83,8 +93,8 @@ app.post('/api/submissions', async (req, res) => {
     const timestamp = new Date().toISOString();
 
     const result = await run(
-      'INSERT INTO submissions (fullName, email, shakthiResponse, createdAt) VALUES (?, ?, ?, ?)',
-      [fullName.trim(), email.trim().toLowerCase(), trimmedResponse, timestamp]
+      'INSERT INTO submissions (fullName, email, phone, shakthiResponse, createdAt) VALUES (?, ?, ?, ?, ?)',
+      [fullName.trim(), email.trim().toLowerCase(), phone.trim(), trimmedResponse, timestamp]
     );
 
     res.status(201).json({
@@ -93,6 +103,7 @@ app.post('/api/submissions', async (req, res) => {
         id: result.lastID,
         fullName: fullName.trim(),
         email: email.trim().toLowerCase(),
+        phone: phone.trim(),
         shakthiResponse: trimmedResponse,
         createdAt: timestamp
       }
@@ -154,10 +165,10 @@ app.get('/api/admin/submissions', authenticateToken, async (req, res) => {
 
     if (search) {
       const searchPattern = `%${search}%`;
-      query += ' AND (fullName LIKE ? OR email LIKE ? OR shakthiResponse LIKE ?)';
-      countQuery += ' AND (fullName LIKE ? OR email LIKE ? OR shakthiResponse LIKE ?)';
-      params.push(searchPattern, searchPattern, searchPattern);
-      countParams.push(searchPattern, searchPattern, searchPattern);
+      query += ' AND (fullName LIKE ? OR email LIKE ? OR phone LIKE ? OR shakthiResponse LIKE ?)';
+      countQuery += ' AND (fullName LIKE ? OR email LIKE ? OR phone LIKE ? OR shakthiResponse LIKE ?)';
+      params.push(searchPattern, searchPattern, searchPattern, searchPattern);
+      countParams.push(searchPattern, searchPattern, searchPattern, searchPattern);
     }
 
     if (startDate) {

@@ -33,24 +33,30 @@ function all(sql, params = []) {
 }
 
 async function initDb() {
-  // Create submissions table with email
+  // Create submissions table with email and phone
   await run(`
     CREATE TABLE IF NOT EXISTS submissions (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       fullName TEXT NOT NULL,
       email TEXT,
+      phone TEXT,
       shakthiResponse TEXT NOT NULL,
       createdAt TEXT NOT NULL
     )
   `);
 
-  // Migration: Add email column if table exists without it
+  // Migration: Add email and phone columns if table exists without them
   try {
     const columns = await all("PRAGMA table_info(submissions)");
     const emailExists = columns.some(col => col.name === 'email');
     if (!emailExists) {
       await run("ALTER TABLE submissions ADD COLUMN email TEXT");
       console.log('Database Migration: Added email column to submissions table.');
+    }
+    const phoneExists = columns.some(col => col.name === 'phone');
+    if (!phoneExists) {
+      await run("ALTER TABLE submissions ADD COLUMN phone TEXT");
+      console.log('Database Migration: Added phone column to submissions table.');
     }
   } catch (err) {
     console.error('Database migration error:', err);
