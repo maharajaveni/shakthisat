@@ -381,9 +381,9 @@ h1, h2, h3, h4, h5, h6 {
   aspect-ratio: 1 / 1.414;
   background: #090615 !important;
   background-image: url('/space_bg.jpg') !important;
-  background-size: 100% 100% !important;
+  background-size: 108% 108% !important;
   background-repeat: no-repeat !important;
-  background-position: center !important;
+  background-position: center -35px !important;
   color: #ffffff;
   border-radius: 4px;
   overflow: hidden;
@@ -406,9 +406,9 @@ h1, h2, h3, h4, h5, h6 {
   height: 1118px;
   background: #090615 !important;
   background-image: url('/space_bg.jpg') !important;
-  background-size: 100% 100% !important;
+  background-size: 108% 108% !important;
   background-repeat: no-repeat !important;
-  background-position: center !important;
+  background-position: center -35px !important;
   color: #ffffff;
   overflow: hidden;
   position: relative;
@@ -1100,8 +1100,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .kids-theme .certificate-title {
   font-family: 'Cinzel', serif !important;
-  font-size: 52px;
+  font-size: 44px;
   font-weight: 800;
+  letter-spacing: 4px !important;
   background: linear-gradient(135deg, #ffffff 0%, #ffd700 50%, #d4af37 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1136,10 +1137,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .kids-theme .certificate-program-title {
   font-family: 'Cinzel', serif !important;
-  font-size: 34px;
+  font-size: 28px;
   font-weight: 800;
   color: #ffd700;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px !important;
   text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
 }
 
