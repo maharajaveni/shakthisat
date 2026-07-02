@@ -170,40 +170,8 @@ function Certificate({ fullName, shakthiResponse, isPreview = false }) {
         {/* Footer: Signature block on the left, Seal on the right (restored to older places!) */}
         {/* Footer: Signature block on the left (black text), Seal centered, right empty for rocket */}
         <div className="certificate-footer-signatures" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', position: 'relative' }}>
-          {/* Girl Silhouette Pointing to the Sky - Left Side */}
-          <div style={{ zIndex: 10, width: '150px', marginLeft: '25px', display: 'flex', justifyContent: 'center' }}>
-            <svg width="85" height="110" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-              {/* Earth curve */}
-              <path d="M0 120 Q50 115 100 120" stroke="rgba(255, 215, 0, 0.4)" strokeWidth="1.5" />
-              {/* Girl silhouette pointing up - smooth, realistic curves matching the original reference exactly */}
-              <path d="
-                M 38,118 
-                C 38,118 39,98 41,94 
-                C 42,92 43,92 44,94 
-                C 46,98 47,118 47,118 
-                L 51,118 
-                C 50,98 49,86 48,82 
-                C 47,78 48,75 49,70 
-                C 59,54 70,38 78,28 
-                C 79,26 77,25 76,27 
-                C 67,39 57,55 49,67 
-                C 48,69 47,71 47,73 
-                L 45,71 
-                C 42,76 39,88 38,94 
-                L 41,94 
-                C 42,88 44,78 45,75 
-                C 44,70 44,66 45,63 
-                C 45,63 47,61 48,60 
-                C 52,59 51,55 49,54 
-                L 46,52 
-                C 44,51 43,53 42,56 
-                C 34,58 30,68 26,70 
-                C 28,73 34,70 39,59 
-                C 40,75 39,88 38,118 
-                Z
-              " fill="#000000" />
-            </svg>
-          </div>
+          {/* Space placeholder to maintain flex layout, exposing the realistic background girl silhouette */}
+          <div style={{ width: '150px' }}></div>
 
           <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', bottom: '-5px', zIndex: 5 }}>
             <img src="/shakthisat_seal.png" alt="Mission ShakthiSAT Official Seal" className="cert-seal-img" crossOrigin="anonymous" style={{ width: '115px', height: '115px' }} />
