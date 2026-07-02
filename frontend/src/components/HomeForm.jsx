@@ -77,14 +77,14 @@ function HomeForm({ onSubmissionSuccess }) {
     }
 
     if (!shakthiResponse.trim()) {
-      setError('Please enter your definition of Sakthi.');
+      setError('Please enter your definition of Shakthi.');
       return;
     }
 
     const trimmedResponse = shakthiResponse.trim();
     const words = trimmedResponse.split(/\s+/);
     if (words.length > 2) {
-      setError('Your definition of Sakthi must be at most two words.');
+      setError('Your definition of Shakthi must be at most two words.');
       return;
     }
 
@@ -153,7 +153,7 @@ function HomeForm({ onSubmissionSuccess }) {
           Join the Mission
         </h2>
         <p style={{ color: '#b0a4c0', marginBottom: '1.5rem', fontSize: '0.95rem' }}>
-          Select your category, submit your registration details and unique two-word definition of <b>Sakthi</b> to register for Mission SakthiSAT. Instantly generate your participation certificate.
+          Select your category, submit your registration details and unique two-word definition of <b>Shakthi</b> to register for Mission ShakthiSAT. Instantly generate your participation certificate.
         </p>
 
         {/* Category Tabs Selection */}
@@ -279,9 +279,9 @@ function HomeForm({ onSubmissionSuccess }) {
             </div>
           )}
 
-          {/* Sakthi Response */}
+          {/* Shakthi Response */}
           <div className="form-group">
-            <label className="form-label" htmlFor="shakthiResponse">What is Sakthi to you?</label>
+            <label className="form-label" htmlFor="shakthiResponse">What is Shakthi to you?</label>
             <div style={{ position: 'relative' }}>
               <input
                 id="shakthiResponse"

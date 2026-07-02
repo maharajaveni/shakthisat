@@ -16,7 +16,7 @@ const SpaceShuttleSVG = () => (
     <path d="M 65,120 L 85,150 L 65,155 Z" fill="#b0bec5" />
     <circle cx="50" cy="75" r="4" fill="#00e5ff" />
     <circle cx="50" cy="90" r="4" fill="#00e5ff" />
-    <text x="50" y="125" fill="#37474f" fontSize="6" fontWeight="bold" textAnchor="middle" transform="rotate(-90 50 120)" fontFamily="Outfit, sans-serif" letterSpacing="1px">SAKTHISAT</text>
+    <text x="50" y="125" fill="#37474f" fontSize="6" fontWeight="bold" textAnchor="middle" transform="rotate(-90 50 120)" fontFamily="Outfit, sans-serif" letterSpacing="1px">SHAKTHISAT</text>
   </svg>
 );
 
@@ -33,7 +33,7 @@ const MissionPatchSVG = () => (
     
     {/* Curved Texts */}
     <text fill="#ffd700" fontSize="10.5" fontWeight="bold" letterSpacing="1.2px" fontFamily="Orbitron, sans-serif">
-      <textPath href="#curve-top" startOffset="50%" textAnchor="middle">MISSION SAKTHISAT</textPath>
+      <textPath href="#curve-top" startOffset="50%" textAnchor="middle">MISSION SHAKTHISAT</textPath>
     </text>
     <text fill="#00e5ff" fontSize="8" fontWeight="bold" letterSpacing="0.8px" fontFamily="Outfit, sans-serif">
       <textPath href="#curve-bottom" startOffset="50%" textAnchor="middle">DREAM ★ DISCOVER ★ EMPOWER</textPath>
@@ -148,8 +148,8 @@ function BoardingPass({ submission, isPreview = false }) {
       return result;
     };
     
-    const block1 = getHashStr(`sakthisat-b1-${id}`, 4);
-    const block2 = getHashStr(`sakthisat-b2-${id}`, 4);
+    const block1 = getHashStr(`shakthisat-b1-${id}`, 4);
+    const block2 = getHashStr(`shakthisat-b2-${id}`, 4);
     const block3 = pad(id || 1, 4);
     
     return `MS25-${block1}-${block2}-${block3}`;
@@ -175,7 +175,7 @@ function BoardingPass({ submission, isPreview = false }) {
       
       const opt = {
         margin: 0,
-        filename: `SakthiSAT_BoardingPass_${displayName.trim().replace(/\s+/g, '_')}.pdf`,
+        filename: `ShakthiSAT_BoardingPass_${displayName.trim().replace(/\s+/g, '_')}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { 
           scale: 2.5, 
@@ -213,7 +213,7 @@ function BoardingPass({ submission, isPreview = false }) {
             </div>
             <div style={{ marginTop: '20px' }}>
               <div style={{ fontSize: '0.75rem', color: '#b0a4c0', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.5px' }}>MISSION</div>
-              <div style={{ fontSize: '1.25rem', fontFamily: 'Cinzel, serif', fontWeight: '900', color: '#ffffff', letterSpacing: '1px' }}>SAKTHISAT</div>
+              <div style={{ fontSize: '1.25rem', fontFamily: 'Cinzel, serif', fontWeight: '900', color: '#ffffff', letterSpacing: '1px' }}>SHAKTHISAT</div>
               <div style={{ fontSize: '0.55rem', color: '#ffd700', fontWeight: 'bold', letterSpacing: '1px', textTransform: 'uppercase', marginTop: '2px' }}>GIRLS • SPACE • STEM • FUTURE</div>
             </div>
           </div>
@@ -274,7 +274,7 @@ function BoardingPass({ submission, isPreview = false }) {
                       MISSION
                     </div>
                     <div style={{ fontSize: '2.4rem', fontFamily: 'Orbitron, sans-serif', fontWeight: '900', color: '#0c0414', lineHeight: '1.0', letterSpacing: '1px' }}>
-                      SAKTHISAT
+                      SHAKTHISAT
                     </div>
                   </div>
                   
@@ -297,7 +297,7 @@ function BoardingPass({ submission, isPreview = false }) {
                 </div>
 
                 <div style={{ fontSize: '0.82rem', color: '#37474f', lineHeight: '1.4', fontFamily: 'Outfit, sans-serif' }}>
-                  has successfully joined the all-girl space crew of <b style={{ color: '#0c0414' }}>MISSION SAKTHISAT</b> and is now officially a future scientist, dreamer and changemaker blasting off towards the stars!
+                  has successfully joined the all-girl space crew of <b style={{ color: '#0c0414' }}>MISSION SHAKTHISAT</b> and is now officially a future scientist, dreamer and changemaker blasting off towards the stars!
                 </div>
               </div>
 

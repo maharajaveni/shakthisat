@@ -61,59 +61,47 @@ function App() {
             <div className="hero-section">
               <div className="hero-logo-container">
                 <img src="/spacekidz_logo.jpg" alt="Space Kidz India Logo" className="hero-spacekidz-logo" />
-                <img src="/shakthisat_logo.jpg" alt="Mission SakthiSAT Logo" className="hero-shakthi-logo" />
+                <img src="/shakthisat_logo.jpg" alt="Mission ShakthiSAT Logo" className="hero-shakthi-logo" />
               </div>
               <h1 
-                aria-label="MISSION SakthiSAT"
+                aria-label="MISSION ShakthiSAT"
                 style={{ fontSize: '2.8rem', fontFamily: 'Cinzel, serif', fontWeight: '900', letterSpacing: '1px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}
               >
                 MISSION 
                 <span className="title-gold-gradient" style={{ display: 'inline-flex', alignItems: 'baseline' }}>
-                  Sakth
+                  Shakth
                   <span style={{ 
-                    display: 'inline-flex', 
-                    flexDirection: 'column', 
-                    alignItems: 'center', 
-                    justifyContent: 'flex-end',
                     position: 'relative', 
-                    width: '0.22em', 
-                    height: '0.72em', 
-                    verticalAlign: 'baseline',
-                    margin: '0 1px'
+                    display: 'inline-block',
+                    background: 'var(--gold-gradient)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    verticalAlign: 'baseline'
                   }}>
+                    i
                     {/* The Dot: Sri Yantra Image */}
                     <img 
                       src="/sriyantra.jpg" 
                       alt="dot" 
                       style={{ 
-                        width: '0.2em', 
-                        height: '0.2em', 
+                        width: '0.22em', 
+                        height: '0.22em', 
                         borderRadius: '50%',
                         position: 'absolute',
-                        top: '0px',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
+                        top: '-0.08em', 
+                        left: '50%', 
+                        transform: 'translateX(-50%)', 
                         border: '0.5px solid rgba(212, 175, 55, 0.4)',
-                        boxShadow: '0 0 3px rgba(212, 175, 55, 0.8)'
+                        boxShadow: '0 0 3px rgba(212, 175, 55, 0.8)',
+                        pointerEvents: 'none'
                       }} 
                     />
-                    {/* The Stem of 'i' */}
-                    <span style={{ 
-                      width: '0.075em', 
-                      height: '0.44em', 
-                      backgroundColor: '#ffd700', 
-                      borderRadius: '1px',
-                      position: 'absolute',
-                      bottom: '0px',
-                      left: '50%',
-                      transform: 'translateX(-50%)'
-                    }} />
                   </span>
                   SAT
                 </span>
               </h1>
               <p className="hero-subtitle">
-                A monumental space initiative by Space Kidz India, empowering women in space sciences and STEM. Participate now to register your name and define your core vision of "Sakthi" for this global mission.
+                A monumental space initiative by Space Kidz India, empowering women in space sciences and STEM. Participate now to register your name and define your core vision of "Shakthi" for this global mission.
               </p>
             </div>
 
@@ -131,7 +119,7 @@ function App() {
               Registration Successful!
             </h2>
             <p style={{ color: '#b0a4c0', marginBottom: '2rem' }}>
-              Thank you, <b>{registeredData.fullName}</b>, for joining Mission SakthiSAT. Your cosmic registration is complete!
+              Thank you, <b>{registeredData.fullName}</b>, for joining Mission ShakthiSAT. Your cosmic registration is complete!
             </p>
 
             {/* Document Selection Tabs */}

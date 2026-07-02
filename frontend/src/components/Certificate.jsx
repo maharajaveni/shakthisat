@@ -41,7 +41,7 @@ function Certificate({ fullName, shakthiResponse, isPreview = false }) {
       
       const opt = {
         margin: 0,
-        filename: `SakthiSAT_Kids_Certificate_${displayName.trim().replace(/\s+/g, '_')}.pdf`,
+        filename: `ShakthiSAT_Kids_Certificate_${displayName.trim().replace(/\s+/g, '_')}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { 
           scale: 2, 
@@ -138,7 +138,7 @@ function Certificate({ fullName, shakthiResponse, isPreview = false }) {
           
           <div className="certificate-text" style={{ marginTop: '5px' }}>for successfully blasting off with the crew of</div>
           
-          <h4 className="certificate-program-title">MISSION SAKTHISAT</h4>
+          <h4 className="certificate-program-title">MISSION SHAKTHISAT</h4>
           
           <div className="certificate-description">
             An all-girl space squad of 12,000 future scientists from 108 countries launching satellites, exploring the universe, and empowering girls in STEM!
@@ -177,7 +177,7 @@ function Certificate({ fullName, shakthiResponse, isPreview = false }) {
           </div>
 
           <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', bottom: '-5px', zIndex: 5 }}>
-            <img src="/shakthisat_seal.png" alt="Mission SakthiSAT Official Seal" className="cert-seal-img" crossOrigin="anonymous" style={{ width: '115px', height: '115px' }} />
+            <img src="/shakthisat_seal.png" alt="Mission ShakthiSAT Official Seal" className="cert-seal-img" crossOrigin="anonymous" style={{ width: '115px', height: '115px' }} />
           </div>
 
           <div style={{ width: '145px' }}></div>

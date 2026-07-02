@@ -5,8 +5,8 @@ function Navbar({ view, setView, user, onLogout }) {
   return (
     <nav className="navbar">
       <a href="#" className="nav-brand" onClick={(e) => { e.preventDefault(); setView('home'); }}>
-        <img src="/shakthisat_logo.jpg" alt="Mission SakthiSAT Logo" className="nav-logo" />
-        <span className="nav-title title-gold-gradient">SakthiSAT</span>
+        <img src="/shakthisat_logo.jpg" alt="Mission ShakthiSAT Logo" className="nav-logo" />
+        <span className="nav-title title-gold-gradient">ShakthiSAT</span>
       </a>
       
       <div className="nav-links">
