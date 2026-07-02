@@ -63,27 +63,51 @@ function App() {
                 <img src="/spacekidz_logo.jpg" alt="Space Kidz India Logo" className="hero-spacekidz-logo" />
                 <img src="/shakthisat_logo.jpg" alt="Mission ShakthiSAT Logo" className="hero-shakthi-logo" />
               </div>
-              <h1 style={{ fontSize: '2.8rem', fontFamily: 'Cinzel, serif', fontWeight: '900', letterSpacing: '1px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+              <h1 
+                aria-label="MISSION ShakthiSAT"
+                style={{ fontSize: '2.8rem', fontFamily: 'Cinzel, serif', fontWeight: '900', letterSpacing: '1px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}
+              >
                 MISSION 
                 <span className="title-gold-gradient" style={{ display: 'inline-flex', alignItems: 'baseline' }}>
                   Shakth
-                  <span style={{ position: 'relative', display: 'inline-block' }}>
-                    i
+                  <span style={{ 
+                    display: 'inline-flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center', 
+                    justifyContent: 'flex-end',
+                    position: 'relative', 
+                    width: '0.22em', 
+                    height: '0.72em', 
+                    verticalAlign: 'baseline',
+                    margin: '0 1px'
+                  }}>
+                    {/* The Dot: Sri Yantra Image */}
                     <img 
                       src="/sriyantra.jpg" 
-                      alt="Sri Yantra mandala" 
+                      alt="dot" 
                       style={{ 
-                        position: 'absolute', 
-                        top: '-0.15em', 
-                        left: '50%', 
-                        transform: 'translateX(-50%)', 
-                        width: '0.22em', 
-                        height: '0.22em',
+                        width: '0.2em', 
+                        height: '0.2em', 
                         borderRadius: '50%',
+                        position: 'absolute',
+                        top: '0px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
                         border: '0.5px solid rgba(212, 175, 55, 0.4)',
-                        boxShadow: '0 0 4px rgba(212, 175, 55, 0.8)'
+                        boxShadow: '0 0 3px rgba(212, 175, 55, 0.8)'
                       }} 
                     />
+                    {/* The Stem of 'i' */}
+                    <span style={{ 
+                      width: '0.075em', 
+                      height: '0.44em', 
+                      backgroundColor: '#ffd700', 
+                      borderRadius: '1px',
+                      position: 'absolute',
+                      bottom: '0px',
+                      left: '50%',
+                      transform: 'translateX(-50%)'
+                    }} />
                   </span>
                   SAT
                 </span>
