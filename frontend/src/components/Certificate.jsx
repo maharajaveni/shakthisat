@@ -155,8 +155,11 @@ function Certificate({ fullName, shakthiResponse, isPreview = false }) {
             <div className="certificate-quote-text" style={{ fontStyle: 'italic', fontSize: '1.25rem', color: '#ffd700', margin: '0 0 6px 0', fontFamily: 'EB Garamond, serif', textTransform: 'none', letterSpacing: 'normal' }}>
               “The sky isn't my limit; it's my beginning.”
             </div>
-            <div className="certificate-quote-author" style={{ fontSize: '0.8rem', color: '#ffd700', fontWeight: 'bold', letterSpacing: '1px', textTransform: 'uppercase', fontFamily: 'Outfit, sans-serif' }}>
-              — Dr. Srimathy Kesan, Founder and CEO of Space Kidz India
+            <div className="certificate-quote-author" style={{ fontSize: '0.82rem', color: '#ffd700', fontWeight: 'bold', letterSpacing: '1px', textTransform: 'uppercase', fontFamily: 'Outfit, sans-serif', textAlign: 'center', marginTop: '6px' }}>
+              — Dr. Srimathy Kesan
+              <div style={{ fontSize: '0.72rem', color: 'rgba(255, 215, 0, 0.8)', fontWeight: '500', textTransform: 'none', letterSpacing: '0.5px', marginTop: '3px' }}>
+                Founder and CEO of Space Kidz India
+              </div>
             </div>
             
             {/* Little rocket icon in bottom-right of the box */}
