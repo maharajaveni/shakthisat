@@ -33,30 +33,62 @@ function all(sql, params = []) {
 }
 
 async function initDb() {
-  // Create submissions table with email and phone
+  // Create submissions_school table
   await run(`
-    CREATE TABLE IF NOT EXISTS submissions (
+    CREATE TABLE IF NOT EXISTS submissions_school (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       fullName TEXT NOT NULL,
-      email TEXT,
-      phone TEXT,
+      schoolName TEXT NOT NULL,
       shakthiResponse TEXT NOT NULL,
       createdAt TEXT NOT NULL
     )
   `);
 
-  // Migration: Add email and phone columns if table exists without them
+  // Create submissions_college table
+  await run(`
+    CREATE TABLE IF NOT EXISTS submissions_college (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      fullName TEXT NOT NULL,
+      collegeName TEXT NOT NULL,
+      email TEXT NOT NULL,
+      phone TEXT NOT NULL,
+      shakthiResponse TEXT NOT NULL,
+      createdAt TEXT NOT NULL
+    )
+  `);
+
+  // Create submissions_public table
+  await run(`
+    CREATE TABLE IF NOT EXISTS submissions_public (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      fullName TEXT NOT NULL,
+      email TEXT NOT NULL,
+      phone TEXT NOT NULL,
+      shakthiResponse TEXT NOT NULL,
+      createdAt TEXT NOT NULL
+    )
+  `);
+
+  // Migration: Check if old submissions table exists, copy data, and rename/drop it
   try {
-    const columns = await all("PRAGMA table_info(submissions)");
-    const emailExists = columns.some(col => col.name === 'email');
-    if (!emailExists) {
-      await run("ALTER TABLE submissions ADD COLUMN email TEXT");
-      console.log('Database Migration: Added email column to submissions table.');
-    }
-    const phoneExists = columns.some(col => col.name === 'phone');
-    if (!phoneExists) {
-      await run("ALTER TABLE submissions ADD COLUMN phone TEXT");
-      console.log('Database Migration: Added phone column to submissions table.');
+    const tableExists = await get("SELECT name FROM sqlite_master WHERE type='table' AND name='submissions'");
+    if (tableExists) {
+      // Check if table contains data
+      const oldRows = await all("SELECT * FROM submissions");
+      if (oldRows.length > 0) {
+        // Insert into submissions_public (default target for old submissions)
+        for (const row of oldRows) {
+          const emailVal = row.email || '';
+          const phoneVal = row.phone || '';
+          await run(
+            "INSERT OR IGNORE INTO submissions_public (id, fullName, email, phone, shakthiResponse, createdAt) VALUES (?, ?, ?, ?, ?, ?)",
+            [row.id, row.fullName, emailVal, phoneVal, row.shakthiResponse, row.createdAt]
+          );
+        }
+        console.log(`Database Migration: Migrated ${oldRows.length} rows from submissions to submissions_public`);
+      }
+      await run("DROP TABLE submissions");
+      console.log("Database Migration: Dropped old submissions table");
     }
   } catch (err) {
     console.error('Database migration error:', err);

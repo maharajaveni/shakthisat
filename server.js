@@ -53,31 +53,12 @@ function authorizeSuperadmin(req, res, next) {
 // 1. Submit registration
 app.post('/api/submissions', async (req, res) => {
   try {
-    const { fullName, email, phone, shakthiResponse } = req.body;
+    const { category, fullName, email, phone, schoolName, collegeName, shakthiResponse } = req.body;
+    const activeCategory = category || 'public';
 
-    // Validate inputs
+    // Validate generic inputs
     if (!fullName || typeof fullName !== 'string' || fullName.trim() === '') {
       return res.status(400).json({ success: false, message: 'Full name is required' });
-    }
-
-    if (!email || typeof email !== 'string' || email.trim() === '') {
-      return res.status(400).json({ success: false, message: 'Email address is required' });
-    }
-
-    // Simple email regex validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email.trim())) {
-      return res.status(400).json({ success: false, message: 'Please enter a valid email address' });
-    }
-
-    if (!phone || typeof phone !== 'string' || phone.trim() === '') {
-      return res.status(400).json({ success: false, message: 'Phone number is required' });
-    }
-
-    // Simple phone regex validation (supports international formats)
-    const phoneRegex = /^[+0-9\s-]{7,20}$/;
-    if (!phoneRegex.test(phone.trim())) {
-      return res.status(400).json({ success: false, message: 'Please enter a valid phone number' });
     }
 
     if (!shakthiResponse || typeof shakthiResponse !== 'string' || shakthiResponse.trim() === '') {
@@ -91,22 +72,81 @@ app.post('/api/submissions', async (req, res) => {
     }
 
     const timestamp = new Date().toISOString();
+    let result;
+    let finalSubmission = {
+      fullName: fullName.trim(),
+      shakthiResponse: trimmedResponse,
+      createdAt: timestamp,
+      category: activeCategory
+    };
 
-    const result = await run(
-      'INSERT INTO submissions (fullName, email, phone, shakthiResponse, createdAt) VALUES (?, ?, ?, ?, ?)',
-      [fullName.trim(), email.trim().toLowerCase(), phone.trim(), trimmedResponse, timestamp]
-    );
+    if (activeCategory === 'school') {
+      if (!schoolName || typeof schoolName !== 'string' || schoolName.trim() === '') {
+        return res.status(400).json({ success: false, message: 'School name is required for school students' });
+      }
+      result = await run(
+        'INSERT INTO submissions_school (fullName, schoolName, shakthiResponse, createdAt) VALUES (?, ?, ?, ?)',
+        [fullName.trim(), schoolName.trim(), trimmedResponse, timestamp]
+      );
+      finalSubmission.id = result.lastID;
+      finalSubmission.schoolName = schoolName.trim();
+    } else if (activeCategory === 'college') {
+      if (!collegeName || typeof collegeName !== 'string' || collegeName.trim() === '') {
+        return res.status(400).json({ success: false, message: 'College name is required for college students' });
+      }
+      if (!email || typeof email !== 'string' || email.trim() === '') {
+        return res.status(400).json({ success: false, message: 'Email address is required for college students' });
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.trim())) {
+        return res.status(400).json({ success: false, message: 'Please enter a valid email address' });
+      }
+      if (!phone || typeof phone !== 'string' || phone.trim() === '') {
+        return res.status(400).json({ success: false, message: 'Phone number is required for college students' });
+      }
+      const phoneRegex = /^[+0-9\s-]{7,20}$/;
+      if (!phoneRegex.test(phone.trim())) {
+        return res.status(400).json({ success: false, message: 'Please enter a valid phone number' });
+      }
+
+      result = await run(
+        'INSERT INTO submissions_college (fullName, collegeName, email, phone, shakthiResponse, createdAt) VALUES (?, ?, ?, ?, ?, ?)',
+        [fullName.trim(), collegeName.trim(), email.trim().toLowerCase(), phone.trim(), trimmedResponse, timestamp]
+      );
+      finalSubmission.id = result.lastID;
+      finalSubmission.collegeName = collegeName.trim();
+      finalSubmission.email = email.trim().toLowerCase();
+      finalSubmission.phone = phone.trim();
+    } else if (activeCategory === 'public') {
+      if (!email || typeof email !== 'string' || email.trim() === '') {
+        return res.status(400).json({ success: false, message: 'Email address is required' });
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.trim())) {
+        return res.status(400).json({ success: false, message: 'Please enter a valid email address' });
+      }
+      if (!phone || typeof phone !== 'string' || phone.trim() === '') {
+        return res.status(400).json({ success: false, message: 'Phone number is required' });
+      }
+      const phoneRegex = /^[+0-9\s-]{7,20}$/;
+      if (!phoneRegex.test(phone.trim())) {
+        return res.status(400).json({ success: false, message: 'Please enter a valid phone number' });
+      }
+
+      result = await run(
+        'INSERT INTO submissions_public (fullName, email, phone, shakthiResponse, createdAt) VALUES (?, ?, ?, ?, ?)',
+        [fullName.trim(), email.trim().toLowerCase(), phone.trim(), trimmedResponse, timestamp]
+      );
+      finalSubmission.id = result.lastID;
+      finalSubmission.email = email.trim().toLowerCase();
+      finalSubmission.phone = phone.trim();
+    } else {
+      return res.status(400).json({ success: false, message: 'Invalid category specified' });
+    }
 
     res.status(201).json({
       success: true,
-      submission: {
-        id: result.lastID,
-        fullName: fullName.trim(),
-        email: email.trim().toLowerCase(),
-        phone: phone.trim(),
-        shakthiResponse: trimmedResponse,
-        createdAt: timestamp
-      }
+      submission: finalSubmission
     });
   } catch (error) {
     console.error('Error creating submission:', error);
@@ -156,21 +196,85 @@ app.post('/api/admin/login', async (req, res) => {
 // 3. Get Submissions (Protected Admin route)
 app.get('/api/admin/submissions', authenticateToken, async (req, res) => {
   try {
-    const { search, startDate, endDate, limit, offset } = req.query;
+    const { search, startDate, endDate, limit, offset, category, schoolName, collegeName } = req.query;
+    const activeCategory = category || 'all';
 
-    let query = 'SELECT * FROM submissions WHERE 1=1';
-    let countQuery = 'SELECT COUNT(*) as total FROM submissions WHERE 1=1';
+    let query = '';
+    let countQuery = '';
     const params = [];
     const countParams = [];
 
-    if (search) {
-      const searchPattern = `%${search}%`;
-      query += ' AND (fullName LIKE ? OR email LIKE ? OR phone LIKE ? OR shakthiResponse LIKE ?)';
-      countQuery += ' AND (fullName LIKE ? OR email LIKE ? OR phone LIKE ? OR shakthiResponse LIKE ?)';
-      params.push(searchPattern, searchPattern, searchPattern, searchPattern);
-      countParams.push(searchPattern, searchPattern, searchPattern, searchPattern);
+    const searchPattern = search ? `%${search}%` : null;
+
+    if (activeCategory === 'school') {
+      query = 'SELECT \'school\' AS category, id, fullName, schoolName, NULL AS collegeName, NULL AS email, NULL AS phone, shakthiResponse, createdAt FROM submissions_school WHERE 1=1';
+      countQuery = 'SELECT COUNT(*) as total FROM submissions_school WHERE 1=1';
+      
+      if (schoolName) {
+        query += ' AND schoolName = ?';
+        countQuery += ' AND schoolName = ?';
+        params.push(schoolName);
+        countParams.push(schoolName);
+      }
+      
+      if (searchPattern) {
+        query += ' AND (fullName LIKE ? OR schoolName LIKE ? OR shakthiResponse LIKE ?)';
+        countQuery += ' AND (fullName LIKE ? OR schoolName LIKE ? OR shakthiResponse LIKE ?)';
+        params.push(searchPattern, searchPattern, searchPattern);
+        countParams.push(searchPattern, searchPattern, searchPattern);
+      }
+    } else if (activeCategory === 'college') {
+      query = 'SELECT \'college\' AS category, id, fullName, NULL AS schoolName, collegeName, email, phone, shakthiResponse, createdAt FROM submissions_college WHERE 1=1';
+      countQuery = 'SELECT COUNT(*) as total FROM submissions_college WHERE 1=1';
+      
+      if (collegeName) {
+        query += ' AND collegeName = ?';
+        countQuery += ' AND collegeName = ?';
+        params.push(collegeName);
+        countParams.push(collegeName);
+      }
+      
+      if (searchPattern) {
+        query += ' AND (fullName LIKE ? OR collegeName LIKE ? OR email LIKE ? OR phone LIKE ? OR shakthiResponse LIKE ?)';
+        countQuery += ' AND (fullName LIKE ? OR collegeName LIKE ? OR email LIKE ? OR phone LIKE ? OR shakthiResponse LIKE ?)';
+        params.push(searchPattern, searchPattern, searchPattern, searchPattern, searchPattern);
+        countParams.push(searchPattern, searchPattern, searchPattern, searchPattern, searchPattern);
+      }
+    } else if (activeCategory === 'public') {
+      query = 'SELECT \'public\' AS category, id, fullName, NULL AS schoolName, NULL AS collegeName, email, phone, shakthiResponse, createdAt FROM submissions_public WHERE 1=1';
+      countQuery = 'SELECT COUNT(*) as total FROM submissions_public WHERE 1=1';
+      
+      if (searchPattern) {
+        query += ' AND (fullName LIKE ? OR email LIKE ? OR phone LIKE ? OR shakthiResponse LIKE ?)';
+        countQuery += ' AND (fullName LIKE ? OR email LIKE ? OR phone LIKE ? OR shakthiResponse LIKE ?)';
+        params.push(searchPattern, searchPattern, searchPattern, searchPattern);
+        countParams.push(searchPattern, searchPattern, searchPattern, searchPattern);
+      }
+    } else { // activeCategory === 'all'
+      query = 'SELECT * FROM (' +
+              '  SELECT \'school\' AS category, id, fullName, schoolName, NULL AS collegeName, NULL AS email, NULL AS phone, shakthiResponse, createdAt FROM submissions_school' +
+              '  UNION ALL' +
+              '  SELECT \'college\' AS category, id, fullName, NULL AS schoolName, collegeName, email, phone, shakthiResponse, createdAt FROM submissions_college' +
+              '  UNION ALL' +
+              '  SELECT \'public\' AS category, id, fullName, NULL AS schoolName, NULL AS collegeName, email, phone, shakthiResponse, createdAt FROM submissions_public' +
+              ') WHERE 1=1';
+      countQuery = 'SELECT COUNT(*) as total FROM (' +
+                   '  SELECT \'school\' AS category, id, fullName, schoolName, NULL AS collegeName, NULL AS email, NULL AS phone, shakthiResponse, createdAt FROM submissions_school' +
+                   '  UNION ALL' +
+                   '  SELECT \'college\' AS category, id, fullName, NULL AS schoolName, collegeName, email, phone, shakthiResponse, createdAt FROM submissions_college' +
+                   '  UNION ALL' +
+                   '  SELECT \'public\' AS category, id, fullName, NULL AS schoolName, NULL AS collegeName, email, phone, shakthiResponse, createdAt FROM submissions_public' +
+                   ') WHERE 1=1';
+      
+      if (searchPattern) {
+        query += ' AND (fullName LIKE ? OR schoolName LIKE ? OR collegeName LIKE ? OR email LIKE ? OR phone LIKE ? OR shakthiResponse LIKE ?)';
+        countQuery += ' AND (fullName LIKE ? OR schoolName LIKE ? OR collegeName LIKE ? OR email LIKE ? OR phone LIKE ? OR shakthiResponse LIKE ?)';
+        params.push(searchPattern, searchPattern, searchPattern, searchPattern, searchPattern, searchPattern);
+        countParams.push(searchPattern, searchPattern, searchPattern, searchPattern, searchPattern, searchPattern);
+      }
     }
 
+    // Filter by Date
     if (startDate) {
       query += ' AND createdAt >= ?';
       countQuery += ' AND createdAt >= ?';
@@ -186,7 +290,7 @@ app.get('/api/admin/submissions', authenticateToken, async (req, res) => {
       countParams.push(adjustedEndDate);
     }
 
-    // Sorting by date descending by default
+    // Sorting by date descending
     query += ' ORDER BY createdAt DESC';
 
     const parsedLimit = parseInt(limit, 10);
@@ -215,14 +319,36 @@ app.get('/api/admin/submissions', authenticateToken, async (req, res) => {
   }
 });
 
+// 3a. Get Filter options (Protected Admin route)
+app.get('/api/admin/filters', authenticateToken, async (req, res) => {
+  try {
+    const schools = await all('SELECT DISTINCT schoolName FROM submissions_school WHERE schoolName IS NOT NULL AND schoolName != \'\' ORDER BY schoolName ASC');
+    const colleges = await all('SELECT DISTINCT collegeName FROM submissions_college WHERE collegeName IS NOT NULL AND collegeName != \'\' ORDER BY collegeName ASC');
+    
+    res.json({
+      success: true,
+      schools: schools.map(row => row.schoolName),
+      colleges: colleges.map(row => row.collegeName)
+    });
+  } catch (error) {
+    console.error('Error retrieving filter options:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
 // 3b. Clear all submissions (Superadmin only)
 app.post('/api/admin/submissions/clear', authenticateToken, authorizeSuperadmin, async (req, res) => {
   try {
-    await run('DELETE FROM submissions');
-    await run("DELETE FROM sqlite_sequence WHERE name='submissions'");
+    await run('DELETE FROM submissions_school');
+    await run("DELETE FROM sqlite_sequence WHERE name='submissions_school'");
+    await run('DELETE FROM submissions_college');
+    await run("DELETE FROM sqlite_sequence WHERE name='submissions_college'");
+    await run('DELETE FROM submissions_public');
+    await run("DELETE FROM sqlite_sequence WHERE name='submissions_public'");
+    
     res.json({
       success: true,
-      message: 'All participant registrations cleared successfully.'
+      message: 'All participant registrations cleared successfully across all tables.'
     });
   } catch (error) {
     console.error('Error clearing submissions:', error);
