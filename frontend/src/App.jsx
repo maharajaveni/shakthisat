@@ -64,10 +64,10 @@ function App() {
                 <img src="/shakthisat_logo.jpg" alt="Mission ShakthiSAT Logo" className="hero-shakthi-logo" />
               </div>
               <h1 
-                aria-label="MISSION ShakthiSAT"
-                style={{ fontSize: '2.8rem', fontFamily: 'Cinzel, serif', fontWeight: '900', letterSpacing: '1px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}
+                aria-label="Mission ShakthiSAT"
+                style={{ fontSize: '3.4rem', fontFamily: "'Cormorant Garamond', serif", fontWeight: '600', letterSpacing: '1px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '14px', flexWrap: 'wrap' }}
               >
-                MISSION 
+                <span style={{ color: '#ffffff' }}>Mission</span>
                 <span className="title-gold-gradient" style={{ display: 'inline-flex', alignItems: 'baseline' }}>
                   Shakth
                   <span style={{ 
@@ -84,15 +84,15 @@ function App() {
                       src="/sriyantra.jpg" 
                       alt="dot" 
                       style={{ 
-                        width: '0.22em', 
-                        height: '0.22em', 
+                        width: '0.18em', 
+                        height: '0.18em', 
                         borderRadius: '50%',
                         position: 'absolute',
-                        top: '-0.08em', 
+                        top: '0.11em', 
                         left: '50%', 
                         transform: 'translateX(-50%)', 
                         border: '0.5px solid rgba(212, 175, 55, 0.4)',
-                        boxShadow: '0 0 3px rgba(212, 175, 55, 0.8)',
+                        boxShadow: '0 0 2px rgba(212, 175, 55, 0.6)',
                         pointerEvents: 'none'
                       }} 
                     />
