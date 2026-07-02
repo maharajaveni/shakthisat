@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomeForm from './components/HomeForm';
 import Certificate from './components/Certificate';
+import BoardingPass from './components/BoardingPass';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 
@@ -13,6 +14,7 @@ function App() {
   
   // Participant submission details for success certificate
   const [registeredData, setRegisteredData] = useState(null);
+  const [successTab, setSuccessTab] = useState('certificate'); // 'certificate' or 'boardingpass'
 
   // Synchronize authentication state
   const handleLoginSuccess = (token, user) => {
@@ -33,6 +35,7 @@ function App() {
 
   const handleSubmissionSuccess = (submission) => {
     setRegisteredData(submission);
+    setSuccessTab('certificate');
     setView('success');
   };
 
@@ -60,8 +63,30 @@ function App() {
                 <img src="/spacekidz_logo.jpg" alt="Space Kidz India Logo" className="hero-spacekidz-logo" />
                 <img src="/shakthisat_logo.jpg" alt="Mission ShakthiSAT Logo" className="hero-shakthi-logo" />
               </div>
-              <h1 style={{ fontSize: '2.5rem', fontFamily: 'Cinzel, serif', fontWeight: '900', letterSpacing: '1px' }}>
-                MISSION <span className="title-gold-gradient">SHAKTHISAT</span>
+              <h1 style={{ fontSize: '2.8rem', fontFamily: 'Cinzel, serif', fontWeight: '900', letterSpacing: '1px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                MISSION 
+                <span className="title-gold-gradient" style={{ display: 'inline-flex', alignItems: 'baseline' }}>
+                  Shakth
+                  <span style={{ position: 'relative', display: 'inline-block', width: '0.45em' }}>
+                    ı
+                    <img 
+                      src="/sriyantra.jpg" 
+                      alt="Sri Yantra mandala" 
+                      style={{ 
+                        position: 'absolute', 
+                        top: '-0.35em', 
+                        left: '50%', 
+                        transform: 'translateX(-50%)', 
+                        width: '0.45em', 
+                        height: '0.45em',
+                        borderRadius: '50%',
+                        border: '0.5px solid rgba(212, 175, 55, 0.4)',
+                        boxShadow: '0 0 6px rgba(212, 175, 55, 0.8)'
+                      }} 
+                    />
+                  </span>
+                  SAT
+                </span>
               </h1>
               <p className="hero-subtitle">
                 A monumental space initiative by Space Kidz India, empowering women in space sciences and STEM. Participate now to register your name and define your core vision of "Shakthi" for this global mission.
@@ -81,17 +106,45 @@ function App() {
             <h2 className="title-gold-gradient" style={{ fontFamily: 'Cinzel, serif', fontSize: '2.2rem', marginBottom: '0.5rem' }}>
               Registration Successful!
             </h2>
-            <p style={{ color: '#b0a4c0', marginBottom: '2.5rem' }}>
-              Thank you, <b>{registeredData.fullName}</b>, for joining Mission ShakthiSAT. Your definition of Shakthi has been recorded.
+            <p style={{ color: '#b0a4c0', marginBottom: '2rem' }}>
+              Thank you, <b>{registeredData.fullName}</b>, for joining Mission ShakthiSAT. Your cosmic registration is complete!
             </p>
 
-            <Certificate 
-              fullName={registeredData.fullName} 
-              shakthiResponse={registeredData.shakthiResponse} 
-              isPreview={false} 
-            />
+            {/* Document Selection Tabs */}
+            <div className="category-tabs-container" style={{ width: '100%', maxWidth: '560px', margin: '0 auto 2.5rem auto' }}>
+              <div className="category-tabs">
+                <button
+                  type="button"
+                  className={`category-tab ${successTab === 'certificate' ? 'active' : ''}`}
+                  onClick={() => setSuccessTab('certificate')}
+                >
+                  Participation Certificate
+                </button>
+                <button
+                  type="button"
+                  className={`category-tab ${successTab === 'boardingpass' ? 'active' : ''}`}
+                  onClick={() => setSuccessTab('boardingpass')}
+                >
+                  Space Boarding Pass
+                </button>
+              </div>
+            </div>
 
-            <div className="success-actions">
+            {/* Conditionally Render Document */}
+            {successTab === 'certificate' ? (
+              <Certificate 
+                fullName={registeredData.fullName} 
+                shakthiResponse={registeredData.shakthiResponse} 
+                isPreview={false} 
+              />
+            ) : (
+              <BoardingPass 
+                submission={registeredData} 
+                isPreview={false} 
+              />
+            )}
+
+            <div className="success-actions" style={{ marginTop: '2.5rem' }}>
               <button className="nav-btn" onClick={() => { setRegisteredData(null); setView('home'); }}>
                 Register Another Participant
               </button>
