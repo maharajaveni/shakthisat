@@ -208,12 +208,35 @@ function BoardingPass({ submission, isPreview = false }) {
       <div className="boarding-stub">
         <div style={{ padding: '20px 15px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginLeft: '-15px' }}>
               <img src="/spacekidz_logo.png" alt="Space Kidz India Logo" style={{ width: '85px', height: 'auto' }} />
             </div>
             <div style={{ marginTop: '20px' }}>
-              <div style={{ fontSize: '0.75rem', color: '#b0a4c0', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.5px' }}>MISSION</div>
-              <div style={{ fontSize: '1.25rem', fontFamily: 'Cinzel, serif', fontWeight: '900', color: '#ffffff', letterSpacing: '1px' }}>SHAKTHISAT</div>
+              <div style={{ fontSize: '0.75rem', color: '#b0a4c0', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '2px' }}>MISSION</div>
+              <div style={{ fontSize: '1.4rem', fontFamily: "'Cormorant Garamond', serif", fontWeight: '600', color: '#ffffff', letterSpacing: '0.5px', display: 'flex', alignItems: 'baseline', gap: '3px' }}>
+                Shakth
+                <span style={{ position: 'relative', display: 'inline-block', verticalAlign: 'baseline' }}>
+                  ı
+                  <img 
+                    src="/sriyantra.jpg" 
+                    alt="dot" 
+                    style={{ 
+                      width: '0.16em', 
+                      height: '0.16em', 
+                      borderRadius: '50%',
+                      position: 'absolute',
+                      top: '0.4em', 
+                      left: '50%', 
+                      transform: 'translateX(-50%)', 
+                      border: '0.8px solid #ffd700',
+                      boxShadow: '0 0 5px #ffd700, 0 0 1.5px #ff4081',
+                      pointerEvents: 'none',
+                      background: '#090615'
+                    }} 
+                  />
+                </span>
+                SAT
+              </div>
               <div style={{ fontSize: '0.55rem', color: '#ffd700', fontWeight: 'bold', letterSpacing: '1px', textTransform: 'uppercase', marginTop: '2px' }}>GIRLS • SPACE • STEM • FUTURE</div>
             </div>
           </div>
@@ -245,7 +268,7 @@ function BoardingPass({ submission, isPreview = false }) {
           
           {/* Header row inside dark blue banner */}
           <div className="boarding-main-header">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: '-15px' }}>
               <img src="/spacekidz_logo.png" alt="Space Kidz India Logo" style={{ width: '105px', height: 'auto' }} />
             </div>
             <div style={{ fontSize: '0.7rem', color: '#ffffff', fontWeight: 'bold', letterSpacing: '1px', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -273,8 +296,29 @@ function BoardingPass({ submission, isPreview = false }) {
                     <div style={{ fontSize: '0.7rem', color: '#ff4081', fontWeight: 'bold', letterSpacing: '1px', textTransform: 'uppercase', marginTop: '6px' }}>
                       MISSION
                     </div>
-                    <div style={{ fontSize: '2.4rem', fontFamily: 'Orbitron, sans-serif', fontWeight: '900', color: '#0c0414', lineHeight: '1.0', letterSpacing: '1px' }}>
-                      SHAKTHISAT
+                    <div style={{ fontSize: '2.4rem', fontFamily: "'Cormorant Garamond', serif", fontWeight: '600', color: '#0c0414', lineHeight: '1.0', letterSpacing: '0.5px', display: 'flex', alignItems: 'baseline', gap: '5px' }}>
+                      Shakth
+                      <span style={{ position: 'relative', display: 'inline-block', verticalAlign: 'baseline' }}>
+                        ı
+                        <img 
+                          src="/sriyantra.jpg" 
+                          alt="dot" 
+                          style={{ 
+                            width: '0.16em', 
+                            height: '0.16em', 
+                            borderRadius: '50%',
+                            position: 'absolute',
+                            top: '0.4em', 
+                            left: '50%', 
+                            transform: 'translateX(-50%)', 
+                            border: '0.8px solid #ffd700',
+                            boxShadow: '0 0 5px #ffd700, 0 0 1.5px #ff4081',
+                            pointerEvents: 'none',
+                            background: '#090615'
+                          }} 
+                        />
+                      </span>
+                      SAT
                     </div>
                   </div>
                   
