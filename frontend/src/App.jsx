@@ -84,15 +84,15 @@ function App() {
                       src="/sriyantra.jpg" 
                       alt="dot" 
                       style={{ 
-                        width: '0.24em', 
-                        height: '0.24em', 
+                        width: '0.16em', 
+                        height: '0.16em', 
                         borderRadius: '50%',
                         position: 'absolute',
-                        top: '0.14em', 
+                        top: '0.16em', 
                         left: '50%', 
                         transform: 'translateX(-50%)', 
-                        border: '1.2px solid #ffd700',
-                        boxShadow: '0 0 8px #ffd700, 0 0 3px #ff4081',
+                        border: '0.8px solid #ffd700',
+                        boxShadow: '0 0 5px #ffd700, 0 0 1.5px #ff4081',
                         pointerEvents: 'none',
                         background: '#090615'
                       }} 
