@@ -218,7 +218,7 @@ function BoardingPass({ submission, isPreview = false }) {
             </div>
           </div>
 
-          <SpaceShuttleSVG />
+          <img src="/realistic_rocket.png" alt="Realistic Space Rocket" style={{ width: '70px', height: '140px', objectFit: 'contain', margin: '15px auto', display: 'block' }} />
 
           <div>
             <div style={{ fontSize: '0.55rem', color: '#ffd700', fontWeight: 'bold', letterSpacing: '1.5px', textTransform: 'uppercase', textAlign: 'center', marginBottom: '8px' }}>
