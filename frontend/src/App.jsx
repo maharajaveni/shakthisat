@@ -61,15 +61,15 @@ function App() {
             <div className="hero-section">
               <div className="hero-logo-container">
                 <img src="/spacekidz_logo.jpg" alt="Space Kidz India Logo" className="hero-spacekidz-logo" />
-                <img src="/shakthisat_logo.jpg" alt="Mission ShakthiSAT Logo" className="hero-shakthi-logo" />
+                <img src="/shakthisat_logo.jpg" alt="Mission SakthiSAT Logo" className="hero-shakthi-logo" />
               </div>
               <h1 
-                aria-label="MISSION ShakthiSAT"
+                aria-label="MISSION SakthiSAT"
                 style={{ fontSize: '2.8rem', fontFamily: 'Cinzel, serif', fontWeight: '900', letterSpacing: '1px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}
               >
                 MISSION 
                 <span className="title-gold-gradient" style={{ display: 'inline-flex', alignItems: 'baseline' }}>
-                  Shakth
+                  Sakth
                   <span style={{ 
                     display: 'inline-flex', 
                     flexDirection: 'column', 
@@ -113,7 +113,7 @@ function App() {
                 </span>
               </h1>
               <p className="hero-subtitle">
-                A monumental space initiative by Space Kidz India, empowering women in space sciences and STEM. Participate now to register your name and define your core vision of "Shakthi" for this global mission.
+                A monumental space initiative by Space Kidz India, empowering women in space sciences and STEM. Participate now to register your name and define your core vision of "Sakthi" for this global mission.
               </p>
             </div>
 
@@ -131,7 +131,7 @@ function App() {
               Registration Successful!
             </h2>
             <p style={{ color: '#b0a4c0', marginBottom: '2rem' }}>
-              Thank you, <b>{registeredData.fullName}</b>, for joining Mission ShakthiSAT. Your cosmic registration is complete!
+              Thank you, <b>{registeredData.fullName}</b>, for joining Mission SakthiSAT. Your cosmic registration is complete!
             </p>
 
             {/* Document Selection Tabs */}

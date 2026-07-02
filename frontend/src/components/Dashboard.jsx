@@ -183,12 +183,12 @@ function Dashboard({ token, user }) {
       
       if (res.ok && data.success) {
         let fileContent = '';
-        const filename = `ShakthiSAT_Submissions_${category.toUpperCase()}_${new Date().toISOString().split('T')[0]}`;
+        const filename = `SakthiSAT_Submissions_${category.toUpperCase()}_${new Date().toISOString().split('T')[0]}`;
         
         if (format === 'csv') {
           // CSV construction
           if (category === 'school') {
-            fileContent += 'Submission ID,Participant Name,School Name,Shakthi Definition,Registration Timestamp (UTC)\r\n';
+            fileContent += 'Submission ID,Participant Name,School Name,Sakthi Definition,Registration Timestamp (UTC)\r\n';
             data.submissions.forEach(row => {
               const id = row.id;
               const name = `"${row.fullName.replace(/"/g, '""')}"`;
@@ -198,7 +198,7 @@ function Dashboard({ token, user }) {
               fileContent += `${id},${name},${school},${definition},${date}\r\n`;
             });
           } else if (category === 'college') {
-            fileContent += 'Submission ID,Participant Name,College Name,Email Address,Phone Number,Shakthi Definition,Registration Timestamp (UTC)\r\n';
+            fileContent += 'Submission ID,Participant Name,College Name,Email Address,Phone Number,Sakthi Definition,Registration Timestamp (UTC)\r\n';
             data.submissions.forEach(row => {
               const id = row.id;
               const name = `"${row.fullName.replace(/"/g, '""')}"`;
@@ -210,7 +210,7 @@ function Dashboard({ token, user }) {
               fileContent += `${id},${name},${college},${emailAddr},${phoneNum},${definition},${date}\r\n`;
             });
           } else if (category === 'public') {
-            fileContent += 'Submission ID,Participant Name,Email Address,Phone Number,Shakthi Definition,Registration Timestamp (UTC)\r\n';
+            fileContent += 'Submission ID,Participant Name,Email Address,Phone Number,Sakthi Definition,Registration Timestamp (UTC)\r\n';
             data.submissions.forEach(row => {
               const id = row.id;
               const name = `"${row.fullName.replace(/"/g, '""')}"`;
@@ -221,7 +221,7 @@ function Dashboard({ token, user }) {
               fileContent += `${id},${name},${emailAddr},${phoneNum},${definition},${date}\r\n`;
             });
           } else { // 'all'
-            fileContent += 'Submission ID,Category,Participant Name,School Name,College Name,Email Address,Phone Number,Shakthi Definition,Registration Timestamp (UTC)\r\n';
+            fileContent += 'Submission ID,Category,Participant Name,School Name,College Name,Email Address,Phone Number,Sakthi Definition,Registration Timestamp (UTC)\r\n';
             data.submissions.forEach(row => {
               const id = row.id;
               const cat = row.category;
@@ -247,7 +247,7 @@ function Dashboard({ token, user }) {
           
           if (category === 'school') {
             fileContent += `<tr style="background-color: #3d1b5b; color: #ffffff; font-weight: bold;">`;
-            fileContent += `<th>Submission ID</th><th>Participant Name</th><th>School Name</th><th>Shakthi Definition</th><th>Registration Date</th>`;
+            fileContent += `<th>Submission ID</th><th>Participant Name</th><th>School Name</th><th>Sakthi Definition</th><th>Registration Date</th>`;
             fileContent += `</tr>`;
             data.submissions.forEach(row => {
               fileContent += `<tr>`;
@@ -260,7 +260,7 @@ function Dashboard({ token, user }) {
             });
           } else if (category === 'college') {
             fileContent += `<tr style="background-color: #3d1b5b; color: #ffffff; font-weight: bold;">`;
-            fileContent += `<th>Submission ID</th><th>Participant Name</th><th>College Name</th><th>Email Address</th><th>Phone Number</th><th>Shakthi Definition</th><th>Registration Date</th>`;
+            fileContent += `<th>Submission ID</th><th>Participant Name</th><th>College Name</th><th>Email Address</th><th>Phone Number</th><th>Sakthi Definition</th><th>Registration Date</th>`;
             fileContent += `</tr>`;
             data.submissions.forEach(row => {
               fileContent += `<tr>`;
@@ -275,7 +275,7 @@ function Dashboard({ token, user }) {
             });
           } else if (category === 'public') {
             fileContent += `<tr style="background-color: #3d1b5b; color: #ffffff; font-weight: bold;">`;
-            fileContent += `<th>Submission ID</th><th>Participant Name</th><th>Email Address</th><th>Phone Number</th><th>Shakthi Definition</th><th>Registration Date</th>`;
+            fileContent += `<th>Submission ID</th><th>Participant Name</th><th>Email Address</th><th>Phone Number</th><th>Sakthi Definition</th><th>Registration Date</th>`;
             fileContent += `</tr>`;
             data.submissions.forEach(row => {
               fileContent += `<tr>`;
@@ -289,7 +289,7 @@ function Dashboard({ token, user }) {
             });
           } else { // 'all'
             fileContent += `<tr style="background-color: #3d1b5b; color: #ffffff; font-weight: bold;">`;
-            fileContent += `<th>Submission ID</th><th>Category</th><th>Participant Name</th><th>School Name</th><th>College Name</th><th>Email Address</th><th>Phone Number</th><th>Shakthi Definition</th><th>Registration Date</th>`;
+            fileContent += `<th>Submission ID</th><th>Category</th><th>Participant Name</th><th>School Name</th><th>College Name</th><th>Email Address</th><th>Phone Number</th><th>Sakthi Definition</th><th>Registration Date</th>`;
             fileContent += `</tr>`;
             data.submissions.forEach(row => {
               fileContent += `<tr>`;
@@ -626,7 +626,7 @@ function Dashboard({ token, user }) {
                   <th>ID</th>
                   <th>Participant Name</th>
                   <th>School Name</th>
-                  <th>"Shakthi is..."</th>
+                  <th>"Sakthi is..."</th>
                   <th>Registration Date (Local)</th>
                 </tr>
               )}
@@ -637,7 +637,7 @@ function Dashboard({ token, user }) {
                   <th>College Name</th>
                   <th>Email Address</th>
                   <th>Phone Number</th>
-                  <th>"Shakthi is..."</th>
+                  <th>"Sakthi is..."</th>
                   <th>Registration Date (Local)</th>
                 </tr>
               )}
@@ -647,7 +647,7 @@ function Dashboard({ token, user }) {
                   <th>Participant Name</th>
                   <th>Email Address</th>
                   <th>Phone Number</th>
-                  <th>"Shakthi is..."</th>
+                  <th>"Sakthi is..."</th>
                   <th>Registration Date (Local)</th>
                 </tr>
               )}
@@ -657,7 +657,7 @@ function Dashboard({ token, user }) {
                   <th>Category</th>
                   <th>Participant Name</th>
                   <th>Details / Institution</th>
-                  <th>"Shakthi is..."</th>
+                  <th>"Sakthi is..."</th>
                   <th>Registration Date (Local)</th>
                 </tr>
               )}
