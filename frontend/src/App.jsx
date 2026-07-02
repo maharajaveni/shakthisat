@@ -78,7 +78,7 @@ function App() {
                     WebkitTextFillColor: 'transparent',
                     verticalAlign: 'baseline'
                   }}>
-                    i
+                    ı
                     {/* The Dot: Sri Yantra Image */}
                     <img 
                       src="/sriyantra.jpg" 
@@ -88,7 +88,7 @@ function App() {
                         height: '0.18em', 
                         borderRadius: '50%',
                         position: 'absolute',
-                        top: '0.11em', 
+                        top: '-0.08em', 
                         left: '50%', 
                         transform: 'translateX(-50%)', 
                         border: '0.5px solid rgba(212, 175, 55, 0.4)',
