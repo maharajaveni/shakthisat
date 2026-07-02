@@ -175,16 +175,33 @@ function Certificate({ fullName, shakthiResponse, isPreview = false }) {
             <svg width="85" height="110" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
               {/* Earth curve */}
               <path d="M0 120 Q50 115 100 120" stroke="rgba(255, 215, 0, 0.4)" strokeWidth="1.5" />
-              {/* Girl silhouette pointing up */}
-              <path d="M42 120 L44 95 L41 73 M48 120 L46 95 L49 73" stroke="#000000" strokeWidth="4.5" strokeLinecap="round" />
-              <path d="M41 73 L49 73 L47 54 L43 54 Z" fill="#000000" />
-              <circle cx="45" cy="46" r="6.5" fill="#000000" />
-              {/* Ponytail */}
-              <path d="M40 46 C33 44 31 52 27 49 C29 54 35 51 39 48 Z" fill="#000000" />
-              {/* Pointing arm up and right */}
-              <path d="M47 58 L73 26 L77 29 L51 63 Z" fill="#000000" />
-              {/* Left arm down */}
-              <path d="M41 58 L36 78 L40 78 L43 62 Z" fill="#000000" />
+              {/* Girl silhouette pointing up - smooth, realistic curves matching the original reference exactly */}
+              <path d="
+                M 38,118 
+                C 38,118 39,98 41,94 
+                C 42,92 43,92 44,94 
+                C 46,98 47,118 47,118 
+                L 51,118 
+                C 50,98 49,86 48,82 
+                C 47,78 48,75 49,70 
+                C 59,54 70,38 78,28 
+                C 79,26 77,25 76,27 
+                C 67,39 57,55 49,67 
+                C 48,69 47,71 47,73 
+                L 45,71 
+                C 42,76 39,88 38,94 
+                L 41,94 
+                C 42,88 44,78 45,75 
+                C 44,70 44,66 45,63 
+                C 45,63 47,61 48,60 
+                C 52,59 51,55 49,54 
+                L 46,52 
+                C 44,51 43,53 42,56 
+                C 34,58 30,68 26,70 
+                C 28,73 34,70 39,59 
+                C 40,75 39,88 38,118 
+                Z
+              " fill="#000000" />
             </svg>
           </div>
 
