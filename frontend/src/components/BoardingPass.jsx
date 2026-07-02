@@ -43,8 +43,8 @@ const BlueSealSVG = ({ size = 220 }) => (
   </svg>
 );
 
-// Vector graphic of the circular mission patch (430x430 px scaled)
-const MissionPatchSVG = ({ size = 430 }) => (
+// Vector graphic of the circular mission patch (420x420 px scaled)
+const MissionPatchSVG = ({ size = 420 }) => (
   <svg viewBox="0 0 200 200" width={size} height={size} style={{ display: 'block', margin: '0 auto' }}>
     <defs>
       <path id="curve-top" d="M 30,100 A 70,70 0 0,1 170,100" fill="none" />
@@ -158,7 +158,7 @@ function BoardingPass({ submission, isPreview = false }) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Generate unique Boarding Pass ID (matching SKI-MS26-IN-L1-000842 spec)
+  // Generate unique Boarding Pass ID (matching SKI-MS26-IN-L1-xxxxxx spec)
   const generatePassID = (id) => {
     const pad = (num, size) => {
       let s = "000000" + num;
@@ -176,7 +176,6 @@ function BoardingPass({ submission, isPreview = false }) {
       const element = document.getElementById('boarding-pass-print-area');
       if (!element) return;
       
-      // Temporary inline style override to ensure full scale during capture
       const originalTransform = element.style.transform;
       element.style.transform = 'scale(1)';
       
@@ -185,7 +184,7 @@ function BoardingPass({ submission, isPreview = false }) {
           scale: 2,
           useCORS: true,
           allowTaint: true,
-          backgroundColor: '#071A35',
+          backgroundColor: '#FCFCFB',
           width: 1800,
           height: 1100
         }).then((canvas) => {
@@ -215,14 +214,14 @@ function BoardingPass({ submission, isPreview = false }) {
       style={{ 
         width: '1800px', 
         height: '1100px', 
-        backgroundColor: '#071A35', 
-        borderRadius: '32px', 
+        backgroundColor: '#FCFCFB', 
+        borderRadius: '30px', 
         display: 'flex', 
         overflow: 'hidden', 
         position: 'relative', 
         boxSizing: 'border-box',
-        border: '3px solid rgba(212, 175, 55, 0.35)',
-        boxShadow: '0 25px 75px rgba(0, 0, 0, 0.75)'
+        border: '2px solid #071A35',
+        boxShadow: '0 25px 75px rgba(0, 0, 0, 0.25)'
       }}
     >
       {/* 1. LEFT TICKET STUB (390 px Wide) */}
@@ -230,7 +229,7 @@ function BoardingPass({ submission, isPreview = false }) {
         style={{ 
           width: '390px', 
           height: '100%', 
-          background: 'linear-gradient(to bottom, #04152D 0%, #081E46 100%)', 
+          background: 'linear-gradient(to bottom, #061A40 0%, #0A2342 100%)', 
           position: 'relative', 
           boxSizing: 'border-box',
           overflow: 'hidden'
@@ -251,65 +250,65 @@ function BoardingPass({ submission, isPreview = false }) {
           <circle cx="330" cy="980" r="1" fill="#fff" />
         </svg>
 
-        {/* Space Kidz logo (X=50, Y=40 from spec, 300px wide) */}
+        {/* Space Kidz logo (Centered, 240px wide) */}
         <img 
           src="/spacekidz_logo.png" 
           alt="Space Kidz India Logo" 
           style={{ 
             position: 'absolute', 
-            left: '45px', 
+            left: '75px', 
             top: '40px', 
-            width: '300px', 
+            width: '240px', 
             height: 'auto',
             objectFit: 'contain'
           }} 
         />
 
         {/* Title & Tagline Group */}
-        <div style={{ position: 'absolute', left: '45px', top: '155px', width: '300px', textAlign: 'center' }}>
-          <div style={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Orbitron, sans-serif', color: '#ffffff', letterSpacing: '5px', textTransform: 'uppercase' }}>
+        <div style={{ position: 'absolute', left: '20px', top: '155px', width: '350px', textAlign: 'center' }}>
+          <div style={{ fontSize: '18px', fontWeight: 'bold', fontFamily: 'Orbitron, sans-serif', color: '#ffffff', letterSpacing: '6px', textTransform: 'uppercase' }}>
             MISSION
           </div>
-          <div style={{ fontSize: '54px', fontWeight: '900', fontFamily: 'Orbitron, sans-serif', color: '#ffffff', letterSpacing: '3px', marginTop: '2px' }}>
+          <div style={{ fontSize: '60px', fontWeight: '900', fontFamily: 'Orbitron, sans-serif', color: '#ffffff', letterSpacing: '2px', marginTop: '2px' }}>
             SHAKTHISAT
           </div>
-          <div style={{ fontSize: '19px', fontWeight: '600', fontFamily: 'Montserrat, sans-serif', color: '#FF6B35', letterSpacing: '1px', textTransform: 'uppercase', marginTop: '6px' }}>
+          <div style={{ fontSize: '20px', fontWeight: '600', fontFamily: 'Montserrat, sans-serif', color: '#FF6B35', letterSpacing: '1px', textTransform: 'uppercase', marginTop: '6px' }}>
             GIRLS • SPACE • STEM • FUTURE
           </div>
         </div>
 
-        {/* Realistic Rocket Launch (300x420 px) */}
+        {/* Realistic Rocket Launch (Centered, full vertical weight) */}
         <img 
           src="/realistic_rocket.png" 
           alt="Realistic Rocket Launch" 
           style={{ 
             position: 'absolute', 
-            left: '45px', 
-            top: '315px', 
-            width: '300px', 
+            left: '30px', 
+            top: '300px', 
+            width: '330px', 
             height: '420px', 
             objectFit: 'contain'
           }} 
         />
 
         {/* Caption */}
-        <div style={{ position: 'absolute', left: '20px', top: '750px', width: '350px', textAlign: 'center', fontFamily: 'Montserrat, sans-serif' }}>
-          <div style={{ fontSize: '30px', fontWeight: 'bold', color: '#ffffff', letterSpacing: '0.5px' }}>
+        <div style={{ position: 'absolute', left: '20px', top: '745px', width: '350px', textAlign: 'center', fontFamily: 'Montserrat, sans-serif' }}>
+          <div style={{ fontSize: '30px', fontWeight: '900', color: '#ffffff', letterSpacing: '0.5px' }}>
             LAUNCH YOUR DREAMS.
           </div>
-          <div style={{ fontSize: '30px', fontWeight: 'bold', color: '#FF6B35', letterSpacing: '0.5px', marginTop: '2px' }}>
+          <div style={{ fontSize: '30px', fontWeight: '900', color: '#FF6B35', letterSpacing: '0.5px', marginTop: '2px' }}>
             INSPIRE THE UNIVERSE.
           </div>
         </div>
 
-        {/* PASS ID Card Box (320x180 px) */}
+        {/* PASS ID Card Box (320x170 px) */}
         <div 
           style={{ 
             position: 'absolute', 
             left: '35px', 
-            top: '840px', 
+            top: '845px', 
             width: '320px', 
-            height: '180px', 
+            height: '170px', 
             backgroundColor: 'rgba(4, 17, 34, 0.85)', 
             border: '1.5px solid rgba(255,255,255,0.12)', 
             borderRadius: '18px', 
@@ -322,14 +321,14 @@ function BoardingPass({ submission, isPreview = false }) {
           }}
         >
           <div>
-            <div style={{ fontSize: '20px', color: '#ffffff', fontWeight: 'bold', fontFamily: 'Orbitron, sans-serif', letterSpacing: '1px', textAlign: 'center' }}>
+            <div style={{ fontSize: '22px', color: '#ffffff', fontWeight: 'bold', fontFamily: 'Orbitron, sans-serif', letterSpacing: '1px', textAlign: 'center' }}>
               PASS ID
             </div>
-            <div style={{ fontSize: '24px', color: '#FF6B35', fontWeight: 'bold', fontFamily: 'monospace', letterSpacing: '0.5px', marginTop: '3px', textAlign: 'center' }}>
+            <div style={{ fontSize: '30px', color: '#FF6B35', fontWeight: 'bold', fontFamily: 'monospace', letterSpacing: '0.5px', marginTop: '3px', textAlign: 'center' }}>
               {passId}
             </div>
           </div>
-          <Barcode width={285} height={60} />
+          <Barcode width={285} height={50} />
         </div>
 
         {/* Tear Here Label */}
@@ -337,7 +336,7 @@ function BoardingPass({ submission, isPreview = false }) {
           style={{ 
             position: 'absolute', 
             left: '20px', 
-            top: '1048px', 
+            top: '1045px', 
             width: '350px', 
             textAlign: 'center', 
             fontSize: '18px', 
@@ -355,7 +354,7 @@ function BoardingPass({ submission, isPreview = false }) {
         style={{ 
           width: '2px', 
           height: '100%', 
-          borderLeft: '3px dashed rgba(212, 175, 55, 0.45)', 
+          borderLeft: '3px dashed #8D99AE', 
           zIndex: 10 
         }} 
       />
@@ -365,15 +364,15 @@ function BoardingPass({ submission, isPreview = false }) {
         style={{ 
           width: '1408px', 
           height: '100%', 
-          backgroundColor: '#FDFDFB', 
+          backgroundColor: '#FFFFFF', 
           position: 'relative', 
           boxSizing: 'border-box',
           display: 'flex',
           flexDirection: 'column'
         }}
       >
-        {/* Faint Rocket Blueprint Watermark (15% opacity) */}
-        <svg style={{ position: 'absolute', top: '10%', left: '12%', width: '70%', height: '80%', pointerEvents: 'none', opacity: 0.08 }} viewBox="0 0 800 600">
+        {/* Faint Rocket Blueprint Watermark (10% opacity) */}
+        <svg style={{ position: 'absolute', top: '10%', left: '12%', width: '70%', height: '80%', pointerEvents: 'none', opacity: 0.05 }} viewBox="0 0 800 600">
           <line x1="400" y1="50" x2="400" y2="550" stroke="#0A2342" strokeWidth="1.2" strokeDasharray="5,5" />
           <line x1="200" y1="100" x2="600" y2="100" stroke="#0A2342" strokeWidth="0.6" />
           <line x1="200" y1="250" x2="600" y2="250" stroke="#0A2342" strokeWidth="0.6" />
@@ -390,10 +389,10 @@ function BoardingPass({ submission, isPreview = false }) {
           <text x="460" y="440" fill="#0A2342" fontSize="10" fontFamily="monospace">R-4500 FINS</text>
         </svg>
 
-        {/* 3A. HEADER RIBBON (Height: 130px) */}
+        {/* 3A. HEADER RIBBON (Height: 120px) */}
         <div 
           style={{ 
-            height: '130px', 
+            height: '120px', 
             backgroundColor: '#071A35', 
             display: 'flex', 
             justifyContent: 'space-between', 
@@ -405,127 +404,100 @@ function BoardingPass({ submission, isPreview = false }) {
           {/* Logo & Banner Title */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginLeft: '-15px' }}>
             <img src="/spacekidz_logo.png" alt="Space Kidz India Logo" style={{ width: '180px', height: 'auto', objectFit: 'contain' }} />
-            <div style={{ fontSize: '30px', color: '#ffffff', fontWeight: 'bold', fontFamily: 'Orbitron, sans-serif', letterSpacing: '12px' }}>
+            <div style={{ fontSize: '30px', color: '#ffffff', fontWeight: 'bold', fontFamily: 'Orbitron, sans-serif', letterSpacing: '10px' }}>
               BOARDING PASS ✈
             </div>
           </div>
 
-          {/* Stats Ribbon (Dark Blue Card Ribbon style) */}
+          {/* Stats Ribbon (Dark Navy Ribbon, height 120px aligned) */}
           <div 
             style={{ 
               display: 'flex', 
               alignItems: 'center', 
-              gap: '15px', 
-              background: 'rgba(255,255,255,0.06)', 
-              border: '1.5px solid rgba(255,255,255,0.15)',
-              borderRadius: '10px', 
-              padding: '12px 25px' 
+              gap: '15px'
             }}
           >
             <div style={{ textAlign: 'right', fontFamily: 'Montserrat, sans-serif' }}>
-              <div style={{ fontSize: '20px', color: '#ffffff', fontWeight: 'bold', letterSpacing: '1px' }}>
+              <div style={{ fontSize: '24px', color: '#ffffff', fontWeight: 'bold', letterSpacing: '1px' }}>
                 ALL-GIRL SPACE MISSION
               </div>
-              <div style={{ fontSize: '18px', color: '#00e5ff', fontWeight: '600', letterSpacing: '0.5px', marginTop: '2px' }}>
+              <div style={{ fontSize: '18px', color: '#ffd700', fontWeight: '600', letterSpacing: '0.5px', marginTop: '2px' }}>
                 12,000 GIRLS | 108 COUNTRIES | 1 UNIVERSE
               </div>
             </div>
-            <Globe size={32} style={{ color: '#00e5ff' }} />
+            <Globe size={24} style={{ color: '#ffffff' }} />
           </div>
         </div>
 
-        {/* 3B. CARD BODY (Height: 820px) */}
+        {/* 3B. CARD BODY (Height: 830px) */}
         <div style={{ flex: 1, position: 'relative', padding: '40px 45px', boxSizing: 'border-box' }}>
           
           {/* Left Column content: Title, Certification text, cards, quote */}
           <div style={{ width: '870px', position: 'absolute', left: '45px', top: '35px' }}>
             
-            {/* Mission Title */}
+            {/* Mission Title (Standard clean Orbitron / Sans layout per spec) */}
             <div>
-              <div style={{ fontSize: '28px', color: '#FF6B35', fontWeight: '800', fontFamily: 'Orbitron, sans-serif', letterSpacing: '2px' }}>
+              <div style={{ fontSize: '26px', color: '#FF6B35', fontWeight: '800', fontFamily: 'Orbitron, sans-serif', letterSpacing: '2px' }}>
                 MISSION
               </div>
-              
-              {/* Formatted Title with Dotless-ı and Sri Yantra Image */}
-              <div style={{ fontSize: '92px', fontFamily: "'Cormorant Garamond', serif", fontWeight: '900', color: '#0A2342', lineHeight: '0.9', letterSpacing: '1px', display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-                Shakth
-                <span style={{ position: 'relative', display: 'inline-block', verticalAlign: 'baseline' }}>
-                  ı
-                  <img 
-                    src="/sriyantra.jpg" 
-                    alt="dot" 
-                    style={{ 
-                      width: '0.16em', 
-                      height: '0.16em', 
-                      borderRadius: '50%',
-                      position: 'absolute',
-                      top: '0.45em', 
-                      left: '50%', 
-                      transform: 'translateX(-50%)', 
-                      border: '0.8px solid #ffd700',
-                      boxShadow: '0 0 5px #ffd700, 0 0 1.5px #ff4081',
-                      pointerEvents: 'none',
-                      background: '#090615'
-                    }} 
-                  />
-                </span>
-                SAT
+              <div style={{ fontSize: '92px', fontFamily: 'Orbitron, sans-serif', fontWeight: '900', color: '#071A35', lineHeight: '0.9', letterSpacing: '2px' }}>
+                SHAKTHISAT
               </div>
             </div>
 
-            {/* Certify Label */}
+            {/* Certify Label (Montserrat SemiBold, 24px, Orange) */}
             <div style={{ fontSize: '24px', color: '#FF6B35', fontWeight: 'bold', fontFamily: 'Montserrat, sans-serif', letterSpacing: '3px', marginTop: '35px' }}>
               THIS IS TO CERTIFY THAT
             </div>
 
             {/* Cursive Signature Participant Name */}
-            <div style={{ borderBottom: '2.5px solid #0A2342', width: '820px', paddingBottom: '5px', marginTop: '5px' }}>
+            <div style={{ borderBottom: '2.5px solid #071A35', width: '820px', paddingBottom: '5px', marginTop: '5px' }}>
               <span style={{ fontSize: '72px', fontFamily: "'Great Vibes', cursive", color: '#000000', fontWeight: 'normal' }}>
                 {displayName}
               </span>
             </div>
 
-            {/* Description Paragraph */}
-            <div style={{ fontSize: '22px', color: '#37474f', fontFamily: 'Montserrat, sans-serif', lineHeight: '1.6', width: '820px', marginTop: '22px', fontWeight: '500' }}>
-              has successfully joined the all-girl space crew of <b style={{ color: '#0A2342', fontFamily: "'Cormorant Garamond', serif", fontWeight: 'bold', fontSize: '24px' }}>Mission ShakthiSAT</b> and is officially recognized as a Future Scientist, Dreamer, Explorer and Changemaker, embarking on a journey beyond limits to inspire the next generation of innovators.
+            {/* Description Paragraph (Centered layout constraint) */}
+            <div style={{ fontSize: '22px', color: '#37474f', fontFamily: 'Montserrat, sans-serif', lineHeight: '1.6', width: '820px', marginTop: '22px', fontWeight: '500', textAlign: 'center' }}>
+              has successfully joined the all-girl space crew of <b style={{ color: '#071A35', fontWeight: 'bold' }}>Mission ShakthiSAT</b> and is officially recognized as a Future Scientist, Dreamer, Explorer and Changemaker, embarking on a journey beyond limits to inspire the next generation of innovators.
             </div>
 
             {/* Info Cards Grid (4 in a row) */}
             <div style={{ display: 'flex', gap: '20px', marginTop: '45px', width: '1060px' }}>
               
               {/* Card 1: Launch Date */}
-              <div style={{ width: '250px', height: '120px', border: '2px solid #D9E3F0', borderRadius: '14px', padding: '15px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', gap: '15px', backgroundColor: '#ffffff' }}>
-                <Calendar size={32} style={{ color: '#ff4081' }} />
+              <div style={{ width: '250px', height: '120px', border: '2px solid #D9E3F0', borderRadius: '12px', padding: '15px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', gap: '15px', backgroundColor: '#ffffff' }}>
+                <Calendar size={24} style={{ color: '#ff4081' }} />
                 <div>
                   <div style={{ fontSize: '14px', color: '#8D99AE', fontWeight: 'bold', letterSpacing: '0.5px' }}>LAUNCH DATE</div>
-                  <div style={{ fontSize: '20px', color: '#0A2342', fontWeight: 'bold', fontFamily: 'Montserrat, sans-serif', marginTop: '3px' }}>02 JULY 2026</div>
+                  <div style={{ fontSize: '20px', color: '#071A35', fontWeight: 'bold', fontFamily: 'Montserrat, sans-serif', marginTop: '3px' }}>02 JULY 2026</div>
                 </div>
               </div>
 
               {/* Card 2: Destination */}
-              <div style={{ width: '250px', height: '120px', border: '2px solid #D9E3F0', borderRadius: '14px', padding: '15px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', gap: '15px', backgroundColor: '#ffffff' }}>
-                <SaturnIcon size={32} style={{ color: '#ff4081' }} />
+              <div style={{ width: '250px', height: '120px', border: '2px solid #D9E3F0', borderRadius: '12px', padding: '15px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', gap: '15px', backgroundColor: '#ffffff' }}>
+                <SaturnIcon size={24} style={{ color: '#ff4081' }} />
                 <div>
                   <div style={{ fontSize: '14px', color: '#8D99AE', fontWeight: 'bold', letterSpacing: '0.5px' }}>DESTINATION</div>
-                  <div style={{ fontSize: '18px', color: '#0A2342', fontWeight: 'bold', fontFamily: 'Montserrat, sans-serif', marginTop: '3px', lineHeight: '1.2' }}>INFINITE POSSIBILITIES</div>
+                  <div style={{ fontSize: '18px', color: '#071A35', fontWeight: 'bold', fontFamily: 'Montserrat, sans-serif', marginTop: '3px', lineHeight: '1.2' }}>INFINITE POSSIBILITIES</div>
                 </div>
               </div>
 
               {/* Card 3: Crew Position */}
-              <div style={{ width: '250px', height: '120px', border: '2px solid #D9E3F0', borderRadius: '14px', padding: '15px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', gap: '15px', backgroundColor: '#ffffff' }}>
-                <User size={32} style={{ color: '#ff4081' }} />
+              <div style={{ width: '250px', height: '120px', border: '2px solid #D9E3F0', borderRadius: '12px', padding: '15px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', gap: '15px', backgroundColor: '#ffffff' }}>
+                <User size={24} style={{ color: '#ff4081' }} />
                 <div>
                   <div style={{ fontSize: '14px', color: '#8D99AE', fontWeight: 'bold', letterSpacing: '0.5px' }}>CREW POSITION</div>
-                  <div style={{ fontSize: '19px', color: '#0A2342', fontWeight: 'bold', fontFamily: 'Montserrat, sans-serif', marginTop: '3px' }}>FUTURE SCIENTIST</div>
+                  <div style={{ fontSize: '19px', color: '#071A35', fontWeight: 'bold', fontFamily: 'Montserrat, sans-serif', marginTop: '3px' }}>FUTURE SCIENTIST</div>
                 </div>
               </div>
 
               {/* Card 4: Flight */}
-              <div style={{ width: '250px', height: '120px', border: '2px solid #D9E3F0', borderRadius: '14px', padding: '15px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', gap: '15px', backgroundColor: '#ffffff' }}>
-                <Rocket size={32} style={{ color: '#ff4081' }} />
+              <div style={{ width: '250px', height: '120px', border: '2px solid #D9E3F0', borderRadius: '12px', padding: '15px', boxSizing: 'border-box', display: 'flex', alignItems: 'center', gap: '15px', backgroundColor: '#ffffff' }}>
+                <Rocket size={24} style={{ color: '#ff4081' }} />
                 <div>
                   <div style={{ fontSize: '14px', color: '#8D99AE', fontWeight: 'bold', letterSpacing: '0.5px' }}>FLIGHT</div>
-                  <div style={{ fontSize: '20px', color: '#0A2342', fontWeight: 'bold', fontFamily: 'Montserrat, sans-serif', marginTop: '3px' }}>MS-2026</div>
+                  <div style={{ fontSize: '20px', color: '#071A35', fontWeight: 'bold', fontFamily: 'Montserrat, sans-serif', marginTop: '3px' }}>MS-2026</div>
                 </div>
               </div>
             </div>
@@ -534,14 +506,14 @@ function BoardingPass({ submission, isPreview = false }) {
             <div style={{ display: 'flex', gap: '40px', marginTop: '45px', alignItems: 'flex-end', width: '920px' }}>
               {/* Inspirational Quote */}
               <div style={{ width: '560px' }}>
-                <div style={{ fontSize: '46px', fontWeight: '900', fontFamily: 'Orbitron, sans-serif', color: '#1F5EFF', lineHeight: '1.2', letterSpacing: '1px' }}>
+                <div style={{ fontSize: '52px', fontWeight: '900', fontFamily: 'Orbitron, sans-serif', color: '#071A35', lineHeight: '1.2', letterSpacing: '1px' }}>
                   YOU ARE PART OF HISTORY.
                 </div>
-                <div style={{ fontSize: '46px', fontWeight: '900', fontFamily: 'Orbitron, sans-serif', color: '#1F5EFF', lineHeight: '1.2', letterSpacing: '1px' }}>
+                <div style={{ fontSize: '52px', fontWeight: '900', fontFamily: 'Orbitron, sans-serif', color: '#071A35', lineHeight: '1.2', letterSpacing: '1px' }}>
                   YOU ARE THE FUTURE.
                 </div>
                 <div style={{ borderBottom: '2.5px solid #FF6B35', width: '200px', margin: '10px 0' }}></div>
-                <div style={{ fontSize: '26px', fontWeight: 'bold', fontFamily: 'Montserrat, sans-serif', color: '#FF6B35', letterSpacing: '1.5px', marginTop: '5px' }}>
+                <div style={{ fontSize: '28px', fontWeight: 'bold', fontFamily: 'Montserrat, sans-serif', color: '#FF6B35', letterSpacing: '1.5px', marginTop: '5px' }}>
                   ★ KEEP DREAMING. KEEP EXPLORING. KEEP RISING.
                 </div>
               </div>
@@ -559,7 +531,7 @@ function BoardingPass({ submission, isPreview = false }) {
                     mixBlendMode: 'multiply' 
                   }} 
                 />
-                <div style={{ fontSize: '22px', fontWeight: 'bold', fontFamily: 'Montserrat, sans-serif', color: '#0A2342', letterSpacing: '0.5px' }}>
+                <div style={{ fontSize: '22px', fontWeight: 'bold', fontFamily: 'Montserrat, sans-serif', color: '#071A35', letterSpacing: '0.5px' }}>
                   DR. SRIMATHY KESAN
                 </div>
                 <div style={{ fontSize: '18px', fontWeight: '600', fontFamily: 'Montserrat, sans-serif', color: '#8D99AE', marginTop: '2px' }}>
@@ -575,19 +547,19 @@ function BoardingPass({ submission, isPreview = false }) {
             {/* Top row of right col: Mission ID & QR Code */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
               <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '24px', color: '#0A2342', fontWeight: 'bold', fontFamily: 'Orbitron, sans-serif', letterSpacing: '2px' }}>
+                <div style={{ fontSize: '20px', color: '#071A35', fontWeight: 'bold', fontFamily: 'Orbitron, sans-serif', letterSpacing: '2px' }}>
                   MISSION ID
                 </div>
-                <div style={{ fontSize: '30px', color: '#FF6B35', fontWeight: 'bold', fontFamily: 'monospace', letterSpacing: '0.5px', marginTop: '5px' }}>
+                <div style={{ fontSize: '34px', color: '#FF6B35', fontWeight: 'bold', fontFamily: 'monospace', letterSpacing: '0.5px', marginTop: '5px' }}>
                   {passId}
                 </div>
               </div>
               <QRCodeGraphic size={180} />
             </div>
 
-            {/* Mission Patch (430x430 px) */}
+            {/* Mission Patch (420x420 px) */}
             <div style={{ marginTop: '35px' }}>
-              <MissionPatchSVG size={430} />
+              <MissionPatchSVG size={420} />
             </div>
 
             {/* Official Seal (220x220 px) */}
@@ -612,12 +584,12 @@ function BoardingPass({ submission, isPreview = false }) {
             boxSizing: 'border-box' 
           }}
         >
-          {/* Full-width Barcode (1100 px Wide) */}
-          <Barcode width={1100} height={70} />
+          {/* Full-width Barcode (1200 px Wide) */}
+          <Barcode width={1200} height={70} />
           
           <div 
             style={{ 
-              width: '1100px', 
+              width: '1200px', 
               display: 'flex', 
               justifyContent: 'space-between', 
               alignItems: 'center', 
@@ -630,7 +602,7 @@ function BoardingPass({ submission, isPreview = false }) {
               {passId}
             </div>
             
-            <div style={{ fontSize: '22px', fontWeight: 'bold', fontFamily: 'Orbitron, sans-serif', color: '#ffffff', display: 'flex', alignItems: 'center', gap: '8px', letterSpacing: '1px' }}>
+            <div style={{ fontSize: '28px', fontWeight: 'bold', fontFamily: 'Orbitron, sans-serif', color: '#ffffff', display: 'flex', alignItems: 'center', gap: '8px', letterSpacing: '1px' }}>
               <span>SECURE YOUR DREAMS. THE UNIVERSE IS WAITING.</span>
               <span>🪐</span>
             </div>
