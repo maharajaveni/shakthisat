@@ -88,7 +88,7 @@ function App() {
                         height: '0.16em', 
                         borderRadius: '50%',
                         position: 'absolute',
-                        top: '0.16em', 
+                        top: '0.28em', 
                         left: '50%', 
                         transform: 'translateX(-50%)', 
                         border: '0.8px solid #ffd700',
