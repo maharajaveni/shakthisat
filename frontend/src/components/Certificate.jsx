@@ -170,13 +170,22 @@ function Certificate({ fullName, shakthiResponse, isPreview = false }) {
         {/* Footer: Signature block on the left, Seal on the right (restored to older places!) */}
         {/* Footer: Signature block on the left (black text), Seal centered, right empty for rocket */}
         <div className="certificate-footer-signatures" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', position: 'relative' }}>
-          <div className="signature-block" style={{ zIndex: 10, width: '300px', marginLeft: '-5px' }}>
-            <img src={SIGNATURE_BASE64} alt="Dr. Srimathy Kesan Signature" className="signature-img" />
-            <div className="signature-line-element"></div>
-            <div className="signature-val" style={{ color: '#cfa21b', fontWeight: 'bold', whiteSpace: 'nowrap' }}>DR. SRIMATHY KESAN</div>
-            <div className="signature-details" style={{ color: '#cfa21b', fontWeight: '500', whiteSpace: 'nowrap' }}>
-              Founder and CEO of SpaceKidz India
-            </div>
+          {/* Girl Silhouette Pointing to the Sky - Left Side */}
+          <div style={{ zIndex: 10, width: '150px', marginLeft: '25px', display: 'flex', justifyContent: 'center' }}>
+            <svg width="85" height="110" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* Earth curve */}
+              <path d="M0 120 Q50 115 100 120" stroke="rgba(255, 215, 0, 0.4)" strokeWidth="1.5" />
+              {/* Girl silhouette pointing up */}
+              <path d="M42 120 L44 95 L41 73 M48 120 L46 95 L49 73" stroke="#000000" strokeWidth="4.5" strokeLinecap="round" />
+              <path d="M41 73 L49 73 L47 54 L43 54 Z" fill="#000000" />
+              <circle cx="45" cy="46" r="6.5" fill="#000000" />
+              {/* Ponytail */}
+              <path d="M40 46 C33 44 31 52 27 49 C29 54 35 51 39 48 Z" fill="#000000" />
+              {/* Pointing arm up and right */}
+              <path d="M47 58 L73 26 L77 29 L51 63 Z" fill="#000000" />
+              {/* Left arm down */}
+              <path d="M41 58 L36 78 L40 78 L43 62 Z" fill="#000000" />
+            </svg>
           </div>
 
           <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', bottom: '-5px', zIndex: 5 }}>

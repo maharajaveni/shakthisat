@@ -352,15 +352,7 @@ function BoardingPass({ submission, isPreview = false }) {
                 <div style={{ fontSize: '0.52rem', color: '#ff4081', fontWeight: 'bold', letterSpacing: '1px' }}>★ KEEP DREAMING. KEEP EXPLORING. KEEP RISING.</div>
               </div>
 
-              {/* Dr Srimathy Signature */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                <div style={{ textAlign: 'center', position: 'relative', width: '180px' }}>
-                  <img src="/srimathy_signature.png" alt="Signature" style={{ height: '32px', objectFit: 'contain', position: 'absolute', bottom: '15px', left: '50%', transform: 'translateX(-50%)', mixBlendMode: 'darken' }} />
-                  <div style={{ borderBottom: '1px solid #655e73', margin: '4px 0' }}></div>
-                  <div style={{ fontSize: '0.62rem', color: '#0c0414', fontWeight: 'bold', textTransform: 'uppercase' }}>Dr. Srimathy Kesan</div>
-                  <div style={{ fontSize: '0.52rem', color: '#655e73' }}>Founder & CEO, SpaceKidz India</div>
-                </div>
-
                 {/* Circular Seal */}
                 <div style={{ width: '55px', height: '55px', border: '1.5px dashed #0d47a1', borderRadius: '50%', padding: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
                   <span style={{ fontSize: '0.45rem', color: '#0d47a1', fontWeight: 'bold', lineHeight: '1.1' }}>SPACEKIDZ<br />INDIA<br /><span style={{ fontSize: '0.35rem', color: '#ff4081' }}>OFFICIAL</span></span>
